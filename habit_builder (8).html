@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#FDFBF7] text-[#2C3639]">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Builder</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Playfair Display for headers & Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Supabase client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: {
+              DEFAULT: '#FDFBF7',
+              50: '#FFFFFF',
+              100: '#FDFBF7',
+              200: '#F4EFE6',
+              300: '#EFE8DB',
+              400: '#DED3C1',
+            },
+            sage: {
+              light: '#EBF0EA',
+              soft: '#C6D4C5',
+              DEFAULT: '#7C9082',
+              dark: '#586A5E',
+              deep: '#3A4B40',
+            },
+            terra: {
+              light: '#F5E5DF',
+              soft: '#E29578',
+              DEFAULT: '#C86D51',
+              dark: '#9E472D',
+            },
+            ochre: {
+              light: '#F7E8C8',
+              DEFAULT: '#D99B26',
+              dark: '#A37213',
+            },
+            mist: {
+              light: '#F0F5F6',
+              DEFAULT: '#A2B5BB',
+              dark: '#687E85',
+            },
+            plum: {
+              light: '#EAE2E5',
+              DEFAULT: '#7A5C68',
+              dark: '#523A44',
+            },
+            ink: '#2C3639',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Global Ambient Keyframe Animations */
+    @keyframes slowSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes gentlePulse {
+
+      0%,
+      100% {
+        opacity: 0.85;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+
+    @keyframes sway {
+
+      0%,
+      100% {
+        transform: rotate(-3deg);
+      }
+
+      50% {
+        transform: rotate(4deg);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-7px) rotate(2deg);
+      }
+    }
+
+    @keyframes breath {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.06);
+        opacity: 1;
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes petalBurst {
+      0% {
+        transform: scale(0.6) translateY(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.2) translateY(-12px);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1.4) translateY(-22px);
+        opacity: 0;
+      }
+    }
+
+    .animate-spin-slow {
+      animation: slowSpin 36s linear infinite;
+    }
+
+    .animate-pulse-gentle {
+      animation: gentlePulse 4s ease-in-out infinite;
+    }
+
+    .animate-sway {
+      animation: sway 5s ease-in-out infinite;
+    }
+
+    .animate-sway-delayed {
+      animation: sway 6s ease-in-out 1.5s infinite;
+    }
+
+    .animate-float {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: float 7s ease-in-out 2s infinite;
+    }
+
+    .animate-breath {
+      animation: breath 4s ease-in-out infinite;
+    }
+
+    /* Custom Scrollbars & Transitions */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #F4EFE6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #C6D4C5;
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7C9082;
+    }
+
+    .botanical-card {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .botanical-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px -6px rgba(44, 54, 57, 0.08);
+    }
+
+    /* Checkbox burst container */
+    .task-check-burst {
+      position: relative;
+    }
+
+    .task-check-burst.checked::after {
+      content: '✦';
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      color: #C86D51;
+      font-size: 14px;
+      animation: petalBurst 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+
+    /* Seamless quote fade effect */
+    .quote-fade {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .quote-fade.out {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    /* ============================================================
+       TYPOGRAPHY SYSTEM
+       Fonts are shared by role (heading / title / label / body ...),
+       not by section. Serif = headings, titles & quote. Sans = everything else.
+       Colors use :where() so a utility color class can still override them.
+       ============================================================ */
+    :root {
+      --f-serif: 'Playfair Display', Georgia, serif;
+      --f-sans: 'Inter', sans-serif;
+    }
+
+    .t-display {
+      font-family: var(--f-serif);
+      font-weight: 600;
+      font-size: clamp(2.75rem, 7vw, 4.75rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .t-h1 {
+      font-family: var(--f-serif);
+      font-weight: 600;
+      font-size: 1.75rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .t-h2 {
+      font-family: var(--f-serif);
+      font-weight: 600;
+      font-size: 1.375rem;
+      line-height: 1.25;
+    }
+
+    .t-h3 {
+      font-family: var(--f-serif);
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.35;
+    }
+
+    .t-quote {
+      font-family: var(--f-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.375rem;
+      line-height: 1.55;
+    }
+
+    .t-body {
+      font-family: var(--f-sans);
+      font-weight: 400;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .t-label {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .t-meta {
+      font-family: var(--f-sans);
+      font-weight: 400;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+    }
+
+    .t-stat {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: 0.875rem;
+      line-height: 1.3;
+    }
+
+    .t-badge {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+
+    .t-btn {
+      font-family: var(--f-sans);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+
+    .t-input {
+      font-family: var(--f-sans);
+      font-weight: 400;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+    }
+
+    :where(.t-display, .t-h1, .t-h2, .t-h3, .t-quote) {
+      color: #2C3639;
+    }
+
+    :where(.t-body) {
+      color: #3B4649;
+    }
+
+    :where(.t-label) {
+      color: #3F4D51;
+    }
+
+    :where(.t-meta) {
+      color: #566A71;
+    }
+
+    :where(.t-stat) {
+      color: #2C3639;
+    }
+
+    :where(.t-input) {
+      color: #2C3639;
+    }
+  </style>
+</head>
+
+<body class="h-full font-sans antialiased bg-[#FDFBF7] text-[#2C3639] selection:bg-sage-soft selection:text-sage-deep">
+  <!-- Top Ambient Banner Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
+
+    <!-- HEADER & BRAND MARK -->
+    <header class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 border-b border-paper-300 pb-5">
+      <div class="flex items-center gap-3">
+        <!-- Brand Mark SVG -->
+        <div
+          class="relative w-11 h-11 flex items-center justify-center bg-sage-light rounded-full p-2 border border-sage-soft/60 shadow-sm">
+          <svg class="w-7 h-7 text-sage animate-spin-slow" viewBox="0 0 64 64" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 4C32 4 36 20 52 20C52 20 36 24 32 40C32 40 28 24 12 20C12 20 28 20 32 4Z" fill="currentColor"
+              opacity="0.85" />
+            <path d="M32 24C32 24 40 32 40 48C40 48 32 44 32 32C32 32 32 44 24 48C24 48 24 32 32 24Z" fill="#C86D51"
+              opacity="0.9" />
+            <circle cx="32" cy="32" r="3" fill="#D99B26" />
+          </svg>
+        </div>
+        <h1 class="t-h1">Habit Builder</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <!-- Cloud account (shown only when Supabase is configured) -->
+        <div id="authArea" class="hidden items-center gap-2">
+          <span id="syncStatus" class="t-meta"></span>
+          <span id="authEmail" class="t-meta hidden max-w-[180px] truncate"></span>
+          <button id="btnAuth" type="button"
+            class="px-4 py-1.5 rounded-full bg-sage text-white t-btn hover:bg-sage-dark transition">Sign in</button>
+        </div>
+
+        <!-- Date & Status Tag -->
+        <div class="flex items-center gap-2 bg-paper-200/80 px-3.5 py-1.5 rounded-full border border-paper-300">
+          <svg class="w-4 h-4 text-terra animate-sway" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span id="headerCurrentDate" class="t-stat">Today</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN SECTION GRID -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- HERO (full row) -->
+      <div
+        class="lg:col-span-12 bg-gradient-to-br from-paper-200 via-paper-100 to-sage-light/40 rounded-2xl p-6 sm:p-8 border border-paper-300 relative overflow-hidden flex flex-col justify-between shadow-sm">
+
+        <!-- Background Ambient SVG Layer -->
+        <div class="absolute inset-0 pointer-events-none opacity-40">
+          <svg class="w-full h-full" viewBox="0 0 500 300" fill="none" preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="420" cy="60" r="80" fill="#F7E8C8" opacity="0.6" class="animate-pulse-gentle" />
+            <path d="M-20 280 C 100 200, 250 320, 400 240 C 480 200, 520 260, 550 300 L550 350 L-20 350 Z"
+              fill="#C6D4C5" opacity="0.4" />
+          </svg>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10">
+          <h2 class="t-display">Small steps.<br>Steady growth.</h2>
+        </div>
+
+        <!-- Layered Botanical Hero SVG Illustration -->
+        <div class="relative z-10 mt-6 pt-4 flex items-center justify-between border-t border-paper-300/80">
+          <div class="flex items-center gap-3">
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 text-sage shrink-0" viewBox="0 0 100 100" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <!-- Golden Warm Sun -->
+              <circle cx="50" cy="35" r="16" fill="#D99B26" opacity="0.3" class="animate-pulse-gentle" />
+              <!-- Stems & Floating Leaves -->
+              <path d="M50 85 C50 60, 45 40, 50 15" stroke="#586A5E" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M50 65 C35 55, 20 60, 25 45 C35 45, 45 55, 50 65Z" fill="#7C9082" class="animate-sway" />
+              <path d="M50 50 C65 40, 80 45, 75 30 C65 30, 55 40, 50 50Z" fill="#C86D51" class="animate-sway-delayed" />
+              <path d="M50 35 C38 25, 28 30, 32 18 C42 18, 48 26, 50 35Z" fill="#A2B5BB" class="animate-float" />
+              <circle cx="72" cy="20" r="2" fill="#D99B26" class="animate-pulse-gentle" />
+              <circle cx="28" cy="25" r="1.5" fill="#C86D51" class="animate-pulse-gentle" />
+            </svg>
+            <div id="heroStatsOverview" class="t-stat">
+              Loading...
+            </div>
+          </div>
+
+          <a href="#begin-section"
+            class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-sage text-white t-btn hover:bg-sage-dark transition shadow-sm">
+            <span>+ New Challenge</span>
+          </a>
+        </div>
+
+        <!-- Top Right Watermark SVG -->
+        <svg class="absolute top-3 right-3 w-24 h-24 text-sage-soft/30 pointer-events-none animate-float-delayed"
+          viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 10 C30 30 20 60 50 90 C80 60 70 30 50 10 Z" />
+        </svg>
+      </div>
+
+      <!-- QUOTE CARD (shifted down one position) -->
+      <div
+        class="lg:col-span-5 bg-paper-100 rounded-2xl p-6 sm:p-8 border border-paper-300 flex flex-col justify-between relative overflow-hidden shadow-sm botanical-card">
+        <!-- Decorative Botanical Corner Sprig -->
+        <svg class="absolute -top-4 -right-4 w-20 h-20 text-terra-soft/20 pointer-events-none animate-sway"
+          viewBox="0 0 100 100" fill="currentColor">
+          <path d="M20 80 Q 50 20 80 20 Q 60 50 20 80 Z" />
+        </svg>
+
+        <div>
+          <!-- Kicker & Sprig Motif -->
+          <div class="flex items-center gap-2 mb-4 pb-3 border-b border-paper-200">
+            <svg class="w-4 h-4 text-terra animate-sway" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+            <span class="t-label text-terra-dark">Creative Inspiration</span>
+          </div>
+
+          <!-- Quote Block -->
+          <div id="quoteContainer" class="quote-fade">
+            <blockquote id="quoteText" class="t-quote mb-4">
+              "Leap, and the net will appear."
+            </blockquote>
+            <figcaption id="quoteCitation" class="t-meta text-sage-dark text-right">
+              — Julia Cameron, <cite class="not-italic">The Artist's Way</cite>
+            </figcaption>
+          </div>
+        </div>
+
+        <!-- Refresh Action Button -->
+        <div class="mt-6 pt-4 border-t border-paper-200 flex items-center justify-end">
+          <button id="btnNextQuote"
+            class="inline-flex items-center gap-1.5 t-btn text-terra-dark hover:text-terra transition px-3 py-1.5 rounded-lg hover:bg-terra-light/50 focus:outline-none">
+            <span>Another quote</span>
+            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SECTION 01: BEGIN (Challenge Creation Form) -->
+      <section id="begin-section"
+        class="lg:col-span-7 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card relative">
+        <!-- Header Motif SVG: Sprout -->
+        <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-6 h-6 text-sage animate-sway" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16 28V14M16 14C12 10 6 11 6 17C12 17 16 14 16 14ZM16 14C20 10 26 11 26 17C20 17 16 14 16 14Z"
+                fill="#C6D4C5" fill-opacity="0.5" />
+              <circle cx="16" cy="28" r="2" fill="#7C9082" />
+            </svg>
+            <h2 class="t-h2">01 · Begin</h2>
+          </div>
+        </div>
+
+        <form id="createChallengeForm" class="space-y-4">
+          <div>
+            <label for="inputTitle" class="t-label block mb-1.5">Challenge Title *</label>
+            <input type="text" id="inputTitle" required placeholder="e.g. Morning Pages & Quiet Coffee"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="inputDuration" class="t-label block mb-1.5">Duration (Days)</label>
+              <select id="inputDuration"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition">
+                <option value="7">7 Days (Seedling)</option>
+                <option value="14">14 Days (Sprout)</option>
+                <option value="21" selected>21 Days (Habit Root)</option>
+                <option value="30">30 Days (Bloom)</option>
+                <option value="60">60 Days (Deep Roots)</option>
+                <option value="90">90 Days (Full Season)</option>
+              </select>
+            </div>
+            <div>
+              <label for="inputStartDate" class="t-label block mb-1.5">Start Date</label>
+              <input type="date" id="inputStartDate" required
+                class="w-full px-3 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+            </div>
+          </div>
+
+          <button type="submit"
+            class="w-full py-3 px-4 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition flex items-center justify-center gap-2 shadow-sm mt-2">
+            <svg class="w-4 h-4 animate-sway" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Plant This Challenge</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- SECTION 02: MY JOURNEY (Challenge List & Filter) -->
+      <section id="journey-section"
+        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+        <!-- Header Motif SVG: Dual Leaves -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3 border-b border-paper-200">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-6 h-6 text-terra animate-sway-delayed" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M8 24C8 14 16 8 26 6C24 16 18 24 8 24Z" fill="#F5E5DF" stroke="#C86D51" />
+              <path d="M6 26C12 18 20 16 26 6" stroke="#C86D51" stroke-dasharray="2 2" />
+            </svg>
+            <h2 class="t-h2">02 · My Journey</h2>
+          </div>
+
+          <!-- Filter Pill Navigation -->
+          <div class="flex flex-wrap items-center gap-1.5" id="filterPills">
+            <button data-filter="all"
+              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-sage text-white transition">All</button>
+            <button data-filter="active"
+              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">In
+              progress</button>
+            <button data-filter="completed"
+              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Completed</button>
+            <button data-filter="pastdue"
+              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Past
+              due</button>
+            <button data-filter="upcoming"
+              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Upcoming</button>
+          </div>
+        </div>
+
+        <!-- Challenge Cards Container -->
+        <div id="challengeListContainer" class="space-y-3.5 max-h-[460px] overflow-y-auto pr-1">
+          <!-- Dynamically populated or challengeEmpty SVG -->
+        </div>
+
+        <!-- Empty State SVG Illustration for Challenge Empty -->
+        <div id="challengeEmpty"
+          class="hidden flex-col items-center justify-center text-center py-12 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
+          <svg class="w-24 h-24 text-sage-soft mb-3 animate-float" viewBox="0 0 120 120" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" fill="#EBF0EA" opacity="0.6" />
+            <!-- Pot Waiting for Seed -->
+            <path d="M40 75 L45 100 L75 100 L80 75 Z" fill="#E29578" stroke="#C86D51" stroke-width="2" />
+            <rect x="36" y="70" width="48" height="6" rx="3" fill="#C86D51" />
+            <!-- Soil & Sprout -->
+            <ellipse cx="60" cy="71" rx="20" ry="4" fill="#586A5E" />
+            <path d="M60 70 C60 55 52 45 42 48 C42 48 50 62 60 70 Z" fill="#7C9082" class="animate-sway" />
+            <path d="M60 62 C60 52 70 42 78 46 C78 46 72 58 60 62 Z" fill="#C6D4C5" class="animate-sway-delayed" />
+            <circle cx="75" cy="35" r="3" fill="#D99B26" class="animate-pulse-gentle" />
+            <circle cx="35" cy="30" r="2" fill="#A2B5BB" class="animate-pulse-gentle" />
+          </svg>
+          <h3 class="t-h3">No challenges here</h3>
+          <p class="t-meta mt-1 max-w-xs">Plant a new challenge in Begin to get started.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 03: PRACTICE (Daily Task Check-in for Selected Challenge) -->
+      <section id="practice-section"
+        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+        <!-- Header Motif SVG: Bloom / Flower -->
+        <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-6 h-6 text-ochre animate-sway" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="4" fill="#D99B26" />
+              <path d="M16 4 C14 9 14 12 16 12 C18 12 18 9 16 4 Z" fill="#F7E8C8" stroke="#D99B26" />
+              <path d="M16 28 C14 23 14 20 16 20 C18 20 18 23 16 28 Z" fill="#F7E8C8" stroke="#D99B26" />
+              <path d="M4 16 C9 14 12 14 12 16 C12 18 9 18 4 16 Z" fill="#F7E8C8" stroke="#D99B26" />
+              <path d="M28 16 C23 14 20 14 20 16 C20 18 23 18 28 16 Z" fill="#F7E8C8" stroke="#D99B26" />
+            </svg>
+            <h2 class="t-h2">03 · Practice</h2>
+          </div>
+          <div id="practiceDateNav" class="flex items-center gap-1">
+            <button id="btnPrevDay"
+              class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition"
+              aria-label="Previous day">&larr;</button>
+            <span id="displaySelectedDate" class="t-stat px-1">Today</span>
+            <button id="btnNextDay"
+              class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition"
+              aria-label="Next day">&rarr;</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div id="practiceActiveContainer">
+          <!-- Active challenge header info -->
+          <div
+            class="mb-5 bg-paper-200/60 p-4 rounded-xl border border-paper-300 flex items-center justify-between gap-3">
+            <h3 id="activeChallengeTitle" class="t-h3">Select a challenge</h3>
+            <div class="text-right shrink-0">
+              <div id="activeChallengeStreak" class="t-stat text-terra-dark">0 Days Rooted</div>
+              <div id="activeChallengePercent" class="t-meta">0% Complete</div>
+            </div>
+          </div>
+
+          <!-- Tasks List -->
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center justify-between">
+              <span class="t-label">Daily Checklist</span>
+              <button id="btnAddStepPrompt" type="button" class="t-btn text-sage-dark hover:text-sage-deep transition">+
+                Add Task</button>
+            </div>
+            <div id="dailyStepsList" class="space-y-2">
+              <!-- Tasks dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Add Task Form (Hidden by default) -->
+          <form id="addStepForm" class="hidden mb-4 p-3 rounded-xl bg-paper-200/60 border border-paper-300 space-y-2.5">
+            <input type="text" id="inputNewStep" placeholder="New task name" aria-label="New task name"
+              class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+            <div class="grid grid-cols-2 gap-2.5">
+              <label class="block">
+                <span class="t-label block mb-1">From</span>
+                <input type="date" id="inputNewStepStart"
+                  class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+              </label>
+              <label class="block">
+                <span class="t-label block mb-1">To</span>
+                <input type="date" id="inputNewStepEnd"
+                  class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+              </label>
+            </div>
+            <div class="flex justify-end gap-2">
+              <button type="button" id="btnCancelAddStep"
+                class="px-3.5 py-2 rounded-lg t-btn text-ink/70 hover:bg-paper-300 transition">Cancel</button>
+              <button type="submit"
+                class="px-4 py-2 bg-sage text-white rounded-lg t-btn hover:bg-sage-dark transition">Add</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Empty State SVG Illustration for Practice Detail Empty -->
+        <div id="detailEmpty"
+          class="flex flex-col items-center justify-center text-center py-10 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
+          <svg class="w-20 h-20 text-sage-soft mb-3 animate-float" viewBox="0 0 100 100" fill="none">
+            <!-- Open Journal & Sprig SVG -->
+            <rect x="15" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5" />
+            <rect x="51" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5" />
+            <line x1="22" y1="40" x2="40" y2="40" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
+            <line x1="22" y1="48" x2="42" y2="48" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
+            <line x1="22" y1="56" x2="35" y2="56" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
+            <!-- Botanical Sprig laying across -->
+            <path d="M30 65 C45 50 55 40 75 35" stroke="#C86D51" stroke-width="2" stroke-linecap="round" />
+            <path d="M45 50 C42 42 48 38 52 42 C52 42 48 48 45 50 Z" fill="#7C9082" class="animate-sway" />
+            <path d="M60 42 C64 36 70 38 68 44 C68 44 62 45 60 42 Z" fill="#C6D4C5" class="animate-sway-delayed" />
+          </svg>
+          <h3 class="t-h3">No active challenge selected</h3>
+          <p class="t-meta mt-1 max-w-xs">Select or create a challenge to check off daily tasks.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 04: NOTICE (Daily Mood & Reflection Journal) -->
+      <section id="notice-section"
+        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+        <!-- Header Motif SVG: Crescent / Sun -->
+        <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-6 h-6 text-plum animate-sway" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M22 16C22 21.5228 17.5228 26 12 26C9.2 26 6.7 24.8 5 23C8 23 14 20 14 13C14 8 10 5.5 7 5C8.5 4.3 10.2 4 12 4C17.5228 4 22 8.47715 22 16Z"
+                fill="#EAE2E5" stroke="#7A5C68" stroke-width="1.5" />
+              <circle cx="24" cy="8" r="1.5" fill="#D99B26" />
+            </svg>
+            <h2 class="t-h2">04 · Notice</h2>
+          </div>
+        </div>
+
+        <p id="noticeContext" class="t-meta mb-4"></p>
+
+        <form id="moodJournalForm" class="space-y-4">
+          <!-- Mood Picker -->
+          <div>
+            <label class="t-label block mb-2">How was your creative flow today?</label>
+            <div class="grid grid-cols-3 xl:grid-cols-6 gap-2" id="moodPickerGrid">
+              <button type="button" data-mood="Calm"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-sage transition">
+                <span class="text-xl">🌿</span>
+                <span class="t-meta">Calm</span>
+              </button>
+              <button type="button" data-mood="Joyful"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-ochre transition">
+                <span class="text-xl">✨</span>
+                <span class="t-meta">Joyful</span>
+              </button>
+              <button type="button" data-mood="Reflective"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-plum transition">
+                <span class="text-xl">🌙</span>
+                <span class="t-meta">Reflective</span>
+              </button>
+              <button type="button" data-mood="Tired"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-mist transition">
+                <span class="text-xl">🌧️</span>
+                <span class="t-meta">Tired</span>
+              </button>
+              <button type="button" data-mood="Creative"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra transition">
+                <span class="text-xl">🎨</span>
+                <span class="t-meta">Creative</span>
+              </button>
+              <button type="button" data-mood="Anxious"
+                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra-dark transition">
+                <span class="text-xl">🍃</span>
+                <span class="t-meta">Restless</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reflection Journal Textarea -->
+          <div>
+            <label for="inputJournalNote" class="t-label block mb-1.5">Journal Note</label>
+            <textarea id="inputJournalNote" rows="3" placeholder="What did you notice today?"
+              class="w-full p-3 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent transition"></textarea>
+          </div>
+
+          <button type="submit"
+            class="w-full py-2.5 rounded-xl bg-plum hover:bg-plum-dark text-white t-btn transition shadow-sm">
+            Save Today's Reflection
+          </button>
+        </form>
+      </section>
+
+      <!-- SECTION 05: LOOK BACK (Weekly Reflection & Calendar Matrix) -->
+      <section id="lookback-section"
+        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+        <!-- Header Motif SVG: Fern -->
+        <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-6 h-6 text-sage animate-sway-delayed" viewBox="0 0 32 32" fill="none">
+              <path d="M6 26 C12 20 18 12 26 4 C24 10 22 18 20 26 Z" fill="#C6D4C5" stroke="#7C9082" />
+              <path d="M12 20 C8 18 6 14 8 12" stroke="#7C9082" stroke-linecap="round" />
+              <path d="M16 16 C14 12 14 8 16 6" stroke="#7C9082" stroke-linecap="round" />
+              <path d="M20 12 C20 8 22 4 24 3" stroke="#7C9082" stroke-linecap="round" />
+            </svg>
+            <h2 class="t-h2">05 · Look Back</h2>
+          </div>
+        </div>
+
+        <!-- Calendar Matrix Grid -->
+        <div id="weeklyCalendarGrid" class="grid grid-cols-7 gap-2 mb-4">
+          <!-- Populated by JS: Mon..Sun status cards -->
+        </div>
+
+        <!-- All challenges' results for the selected day -->
+        <div id="dayDetail" class="space-y-3">
+          <span id="dayDetailDate" class="t-label block">Today</span>
+          <div id="dayChallengeList" class="space-y-3 max-h-[420px] overflow-y-auto pr-1"></div>
+        </div>
+
+        <!-- Empty State SVG Illustration for Week Summary -->
+        <div id="weekSummaryEmpty" class="hidden flex-col items-center justify-center text-center py-6 px-4">
+          <svg class="w-16 h-16 text-mist mb-2 animate-float" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="35" stroke="#A2B5BB" stroke-width="1.5" stroke-dasharray="4 3" />
+            <path d="M30 65 C45 45 55 45 70 65" stroke="#C86D51" stroke-width="2" />
+            <circle cx="50" cy="35" r="5" fill="#D99B26" class="animate-pulse-gentle" />
+          </svg>
+          <p class="t-meta">Log daily practices to see your week.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER WITH SYMMETRICAL BOTANICAL DIVIDER MOTIF -->
+    <footer class="mt-16 pt-8 border-t border-paper-300 text-center relative">
+      <!-- Symmetrical Botanical Divider SVG -->
+      <div class="flex items-center justify-center gap-3 mb-4 text-sage opacity-85">
+        <svg class="w-12 h-6 animate-breath" viewBox="0 0 60 24" fill="none">
+          <path d="M30 12 C20 4 10 12 0 12 C10 12 20 20 30 12 Z" fill="#C6D4C5" />
+          <path d="M30 12 C40 4 50 12 60 12 C50 12 40 20 30 12 Z" fill="#C6D4C5" />
+          <circle cx="30" cy="12" r="3" fill="#C86D51" />
+        </svg>
+      </div>
+
+      <p class="t-meta">Inspired by Julia Cameron's <em>The Artist's Way</em></p>
+    </footer>
+
+  </div>
+
+  <!-- SIGN IN MODAL -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-ink/40 p-4">
+    <form id="authForm"
+      class="w-full max-w-sm bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-lg space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="t-h2">Sign in</h2>
+        <button type="button" id="btnAuthClose"
+          class="w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:bg-paper-200 transition"
+          aria-label="Close">✕</button>
+      </div>
+      <div>
+        <label for="authEmailInput" class="t-label block mb-1.5">Email</label>
+        <input type="email" id="authEmailInput" required autocomplete="email"
+          class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+      </div>
+      <div>
+        <label for="authPasswordInput" class="t-label block mb-1.5">Password</label>
+        <input type="password" id="authPasswordInput" required minlength="6" autocomplete="current-password"
+          class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+      </div>
+      <p id="authMessage" class="t-meta min-h-[1.25rem]"></p>
+      <div class="grid grid-cols-2 gap-2">
+        <button type="submit" class="py-2.5 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition">Sign
+          in</button>
+        <button type="button" id="btnSignUp"
+          class="py-2.5 rounded-xl border border-sage text-sage-dark hover:bg-sage-light t-btn transition">Create
+          account</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /**
+     * HABIT BUILDER - MULTI-CHALLENGE V3 STORAGE & APPLICATION STATE
+     */
+    const STORAGE_KEY = 'habitBuilderMultiChallenge_v3';
+
+    // SUPABASE: paste your project URL and anon (public) key here.
+    // Leave both empty to keep using this browser's local storage only.
+    const SUPABASE_URL = 'https://njmnhfhzvzmozsqwtafg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qbW5oZmh6dnptb3pzcXd0YWZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTAwODIsImV4cCI6MjExMDk4NjA4Mn0.dkr-qydzVJUPcQ5GBPMcxGeBLtncA9B1LWeiV-Wk8wI';
+
+    // Julia Cameron Quotes Database
+    const JULIA_CAMERON_QUOTES = [
+      { text: "Leap, and the net will appear.", citation: "The Artist's Way, Week 1: Restoring a Sense of Safety" },
+      { text: "Progress, not perfection, is what we should be asking of ourselves.", citation: "The Artist's Way, Week 2: Restoring a Sense of Identity" },
+      { text: "Creativity is the in-between space: the space between the quiet heart and the bustling world.", citation: "The Artist's Way, Week 3: Restoring a Sense of Power" },
+      { text: "As we open our creative channel to the creator, many gentle and unexpected changes occur.", citation: "The Artist's Way, Week 4: Restoring a Sense of Integrity" },
+      { text: "Do not judge your morning pages. Simply keep writing.", citation: "The Artist's Way, Week 5: Restoring a Sense of Possibility" },
+      { text: "Mystery is the heart of creativity. That, and surprise.", citation: "The Artist's Way, Week 6: Restoring a Sense of Abundance" },
+      { text: "The reward for attention is always the same: it is always an increase of attention.", citation: "The Artist's Way, Week 7: Restoring a Sense of Connection" },
+      { text: "Creativity requires faith. Faith requires that we give up control.", citation: "The Artist's Way, Week 8: Restoring a Sense of Strength" },
+      { text: "Enthusiasm is not a emotional state. It is a spiritual commitment.", citation: "The Artist's Way, Week 9: Restoring a Sense of Compassion" },
+      { text: "When we treat our creativity with respect, it responds with beauty.", citation: "The Artist's Way, Week 10: Restoring a Sense of Self-Protection" }
+    ];
+
+    /**
+     * AUTO TASK SUGGESTIONS
+     * The first category whose keywords match the challenge title wins.
+     * Works for English and Korean titles; if nothing matches, a generic set is used.
+     */
+    const TASK_LIBRARY = [
+      {
+        match: /(\bwrit|\bjournal|\bdiary|morning pages|\bessay|\bblog|\bpoem|\bstory|글쓰|글 쓰|일기|저널|작문|블로그|에세이)/i,
+        en: ['Write for 10 minutes without stopping', 'Note one idea or line you like', 'Reread and mark one highlight'],
+        ko: ['10분 동안 멈추지 않고 쓰기', '마음에 드는 문장이나 아이디어 하나 적기', '쓴 글을 다시 읽고 좋은 부분 표시하기']
+      },
+      {
+        match: /(\bread(ing)?\b|\bbooks?\b|독서|책|읽)/i,
+        en: ['Read 10 pages', 'Mark one passage that stood out', 'Write one sentence about what you read'],
+        ko: ['10쪽 읽기', '인상 깊은 구절 하나 표시하기', '읽은 내용을 한 문장으로 정리하기']
+      },
+      {
+        match: /(\brun(ning)?\b|\bjog|\bwalk|\bworkout|\bexercise|\bgym\b|\bfitness|\bswim|\bcycl|\bbik(e|ing)\b|\bhik(e|ing)\b|\byoga|\bstretch|\bpilates|운동|달리기|러닝|조깅|걷기|산책|헬스|요가|스트레칭|수영|자전거|등산|필라테스|홈트)/i,
+        en: ['Warm up for 5 minutes', 'Main workout for 20 minutes', 'Cool down and stretch'],
+        ko: ['5분 동안 몸 풀기', '20분 동안 본 운동하기', '마무리 스트레칭하기']
+      },
+      {
+        match: /(meditat|mindful|\bbreath|gratitude|\bpray|\bcalm\b|명상|마음챙김|호흡|감사|기도)/i,
+        en: ['Sit quietly and breathe for 5 minutes', 'Notice three things you feel or hear', 'Write down one thing you are grateful for'],
+        ko: ['5분 동안 조용히 호흡하기', '지금 느끼거나 들리는 것 세 가지 알아차리기', '감사한 일 하나 적기']
+      },
+      {
+        match: /(\bmusic|\bguitar|\bpiano|\bsing|\bviolin|\bdrum|\bukulele|\binstrument|음악|기타|피아노|노래|바이올린|드럼|악기)/i,
+        en: ['Warm up for 5 minutes', 'Practice one section slowly', 'Play it through once, start to finish'],
+        ko: ['5분 동안 손 풀기', '한 구간을 천천히 연습하기', '처음부터 끝까지 한 번 연주하기']
+      },
+      {
+        match: /(\bdraw|\bsketch|\bpaint|\bart\b|\bdesign|\bphoto|\bcraft|\bdoodle|\billustrat|그림|드로잉|스케치|디자인|사진|공예|캘리)/i,
+        en: ['Sketch or create for 15 minutes', 'Try one new color, shape, or technique', "Save a photo of today's piece"],
+        ko: ['15분 동안 그리거나 만들기', '새로운 색·모양·기법 하나 시도하기', '오늘의 작품을 사진으로 남기기']
+      },
+      {
+        match: /(\bstud(y|ying)|\blearn|\blanguage|\benglish|\bkorean|\bjapanese|\bspanish|\bvocab|\bcourse|\blecture|\bexam|\bcod(e|ing)\b|\bprogramm|공부|학습|영어|단어|강의|시험|코딩|프로그래밍|자격증|복습)/i,
+        en: ['Study for 25 focused minutes', "Review yesterday's notes", 'Write down one thing you learned'],
+        ko: ['25분 동안 집중해서 공부하기', '어제 공부한 내용 복습하기', '오늘 배운 것 한 가지 적기']
+      },
+      {
+        match: /(\bwater|\bhydrat|\bvitamin|물 마시|물마시|수분|영양제|비타민)/i,
+        en: ['Drink a glass of water after waking', 'Refill your bottle at midday', 'Finish one last glass in the evening'],
+        ko: ['일어나서 물 한 잔 마시기', '점심에 물병 다시 채우기', '저녁에 물 한 잔 더 마시기']
+      },
+      {
+        match: /(\bcook|\bmeal|\bdiet|\beat(ing)?\b|\brecipe|\bbreakfast|\bhealthy|요리|식단|식사|건강식)/i,
+        en: ["Plan what you'll eat today", 'Prepare one home-cooked meal or snack', 'Notice how you feel afterwards'],
+        ko: ['오늘 먹을 음식 계획하기', '집밥이나 간식 하나 직접 준비하기', '먹은 뒤 몸 상태 살펴보기']
+      },
+      {
+        match: /(\bsleep|\bbed ?time|\bnap\b|\bwake|\brest\b|\brelax|수면|취침|기상|낮잠|휴식|잠)/i,
+        en: ['Put screens away 30 minutes before bed', 'Dim the lights and tidy your space', 'Get into bed at your target time'],
+        ko: ['잠들기 30분 전 화면 끄기', '조명을 낮추고 주변 정리하기', '목표 시간에 침대에 눕기']
+      },
+      {
+        match: /(\bclean|\btidy|\bdeclutter|\borganiz|\bdesk\b|정리|청소|정돈)/i,
+        en: ['Clear one small area for 10 minutes', 'Put 5 things back where they belong', 'Set aside one item to donate or discard'],
+        ko: ['10분 동안 한 구역 정리하기', '물건 5개 제자리에 두기', '버리거나 기부할 물건 하나 고르기']
+      },
+      {
+        match: /(\bphone|\bscreen|social media|\bdetox|스마트폰|휴대폰|핸드폰|\bsns)/i,
+        en: ['Keep your phone out of reach for 1 hour', 'Swap one scroll for a short walk or stretch', 'Note how you felt without it'],
+        ko: ['1시간 동안 휴대폰 멀리 두기', '스크롤 대신 짧게 걷거나 스트레칭하기', '쓰지 않았을 때의 기분 적어보기']
+      }
+    ];
+
+    // Core State
+    let appData = {
+      challenges: [],
+      activeId: null
+    };
+
+    let activeFilter = 'all';
+    let selectedDateStr = getFormattedDate(new Date());
+    let editingTaskId = null;
+    let selectedMood = 'Calm';
+    let lastNoticeKey = null;
+
+    // Helper Date Utilities
+    function getFormattedDate(d) {
+      const date = new Date(d);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDateDisplay(dateStr) {
+      const todayStr = getFormattedDate(new Date());
+      if (dateStr === todayStr) return 'Today';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function addDays(dateStr, n) {
+      const d = new Date(dateStr + 'T00:00:00');
+      d.setDate(d.getDate() + n);
+      return getFormattedDate(d);
+    }
+
+    function getChallengeEnd(c) {
+      return addDays(c.startDate, (c.duration || 21) - 1);
+    }
+
+    // TASK HELPERS
+    function generateTasks(title) {
+      const isKorean = /[\u3131-\u318E\uAC00-\uD7A3]/.test(title);
+      const lang = isKorean ? 'ko' : 'en';
+      const found = TASK_LIBRARY.find(group => group.match.test(title));
+      if (found) return found[lang].slice();
+      const short = title.length > 24 ? title.slice(0, 24).trim() + '…' : title;
+      return isKorean
+        ? [`“${short}” 준비하기`, `“${short}”에 10분 집중하기`, '오늘 느낀 점 한 줄 적기']
+        : [`Set up what you need for “${short}”`, `Spend 10 focused minutes on “${short}”`, 'Note how it went'];
+    }
+
+    function newTaskId() {
+      return 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    }
+
+    function makeTasks(title, startDate, duration) {
+      const end = addDays(startDate, duration - 1);
+      return generateTasks(title || '').map(text => ({
+        id: newTaskId(),
+        text,
+        start: startDate,
+        end
+      }));
+    }
+
+    function isTaskScheduled(task, dateStr) {
+      return task.start <= dateStr && dateStr <= task.end;
+    }
+
+    function formatShortDate(dateStr) {
+      return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function periodLabel(c, task) {
+      if (task.start === c.startDate && task.end === getChallengeEnd(c)) return 'Whole challenge';
+      return `${formatShortDate(task.start)} – ${formatShortDate(task.end)}`;
+    }
+
+    // A day counts as done when every task scheduled for it is checked
+    function isDayDone(c, dateStr) {
+      const log = c.logs && c.logs[dateStr];
+      if (!log) return false;
+      if (!log.done) return !!log.completed; // days saved before tasks existed
+      const scheduled = (c.tasks || []).filter(t => isTaskScheduled(t, dateStr));
+      return scheduled.length > 0 && scheduled.every(t => log.done[t.id]);
+    }
+
+    function countDoneDays(c) {
+      return Object.keys(c.logs || {}).filter(d => isDayDone(c, d)).length;
+    }
+
+    function getActiveChallenge() {
+      return appData.challenges.find(c => c.id === appData.activeId);
+    }
+
+    // INITIALIZATION & LOCAL STORAGE
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          appData = JSON.parse(raw);
+          normalizeData();
+        } else {
+          // Default Sample Starter Challenge
+          const today = getFormattedDate(new Date());
+          const defaultId = 'challenge_' + Date.now();
+          const sampleTitle = 'Morning Artist Date & Journal';
+          appData = {
+            challenges: [
+              {
+                id: defaultId,
+                title: sampleTitle,
+                startDate: today,
+                duration: 21,
+                createdAt: Date.now(),
+                tasks: makeTasks(sampleTitle, today, 21),
+                logs: {},
+                moods: {}
+              }
+            ],
+            activeId: defaultId
+          };
+          saveData();
+        }
+      } catch (e) {
+        console.error('Error loading localStorage', e);
+      }
+    }
+
+    // Make older saved data compatible (adds tasks to challenges that have none)
+    function normalizeData() {
+      if (!appData || !Array.isArray(appData.challenges)) {
+        appData = { challenges: [], activeId: null };
+      }
+      let changed = false;
+      appData.challenges.forEach(c => {
+        if (!c.logs) { c.logs = {}; changed = true; }
+        if (!c.moods) { c.moods = {}; changed = true; }
+        if (!Array.isArray(c.tasks)) {
+          c.tasks = makeTasks(c.title, c.startDate, c.duration || 21);
+          changed = true;
+        }
+      });
+      if (changed) saveData();
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+      } catch (e) {
+        console.error('Error saving localStorage', e);
+      }
+      scheduleCloudSave();
+    }
+
+    /**
+     * SUPABASE CLOUD SYNC
+     * One row per user in public.habit_data holds the whole app state as JSON.
+     * Local storage stays as the working copy; signed-in changes are pushed after a short delay.
+     */
+    let sb = null;
+    let currentUser = null;
+    let cloudSaveTimer = null;
+    let isPulling = false;
+
+    function setSyncStatus(text) {
+      const el = document.getElementById('syncStatus');
+      if (el) el.textContent = text;
+    }
+
+    function scheduleCloudSave() {
+      if (!sb || !currentUser || isPulling) return;
+      setSyncStatus('Saving…');
+      clearTimeout(cloudSaveTimer);
+      cloudSaveTimer = setTimeout(pushToCloud, 800);
+    }
+
+    async function pushToCloud() {
+      if (!sb || !currentUser) return;
+      const { error } = await sb.from('habit_data').upsert({
+        user_id: currentUser.id,
+        data: appData,
+        updated_at: new Date().toISOString()
+      });
+      if (error) {
+        console.error('Cloud save failed', error);
+        setSyncStatus('Sync failed');
+      } else {
+        setSyncStatus('Synced');
+      }
+    }
+
+    // On sign-in: cloud data wins; if the cloud is empty, upload what is on this device
+    async function pullFromCloud() {
+      if (!sb || !currentUser) return;
+      setSyncStatus('Syncing…');
+      const { data, error } = await sb.from('habit_data').select('data').eq('user_id', currentUser.id).maybeSingle();
+      if (error) {
+        console.error('Cloud load failed', error);
+        setSyncStatus('Sync failed');
+        return;
+      }
+      if (data && data.data && Array.isArray(data.data.challenges)) {
+        isPulling = true;
+        appData = data.data;
+        normalizeData();
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); } catch (e) { }
+        isPulling = false;
+        lastNoticeKey = null;
+        renderAll();
+        setSyncStatus('Synced');
+      } else {
+        await pushToCloud();
+      }
+    }
+
+    function updateAuthUI() {
+      const area = document.getElementById('authArea');
+      const emailEl = document.getElementById('authEmail');
+      const btn = document.getElementById('btnAuth');
+      area.classList.remove('hidden');
+      area.classList.add('flex');
+      if (currentUser) {
+        emailEl.textContent = currentUser.email || '';
+        emailEl.classList.remove('hidden');
+        emailEl.classList.add('inline-block');
+        btn.textContent = 'Sign out';
+      } else {
+        emailEl.classList.add('hidden');
+        emailEl.classList.remove('inline-block');
+        btn.textContent = 'Sign in';
+        setSyncStatus('');
+      }
+    }
+
+    function openAuthModal() {
+      const modal = document.getElementById('authModal');
+      document.getElementById('authMessage').textContent = '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('authEmailInput').focus();
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('authModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function initSupabase() {
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY || !window.supabase) return;
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      updateAuthUI();
+
+      document.getElementById('btnAuth').addEventListener('click', async () => {
+        if (currentUser) await sb.auth.signOut();
+        else openAuthModal();
+      });
+      document.getElementById('btnAuthClose').addEventListener('click', closeAuthModal);
+      document.getElementById('authModal').addEventListener('click', (e) => {
+        if (e.target.id === 'authModal') closeAuthModal();
+      });
+
+      const msgEl = document.getElementById('authMessage');
+      const readCredentials = () => ({
+        email: document.getElementById('authEmailInput').value.trim(),
+        password: document.getElementById('authPasswordInput').value
+      });
+
+      document.getElementById('authForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msgEl.textContent = 'Signing in…';
+        const { error } = await sb.auth.signInWithPassword(readCredentials());
+        if (error) msgEl.textContent = error.message;
+        else closeAuthModal();
+      });
+
+      document.getElementById('btnSignUp').addEventListener('click', async () => {
+        const creds = readCredentials();
+        if (!creds.email || creds.password.length < 6) {
+          msgEl.textContent = 'Enter an email and a password of at least 6 characters.';
+          return;
+        }
+        msgEl.textContent = 'Creating account…';
+        const { data, error } = await sb.auth.signUp(creds);
+        if (error) msgEl.textContent = error.message;
+        else if (data.session) closeAuthModal();
+        else msgEl.textContent = 'Check your email to confirm, then sign in.';
+      });
+
+      // Fires on page load (existing session), sign-in and sign-out
+      sb.auth.onAuthStateChange((event, session) => {
+        const user = session ? session.user : null;
+        if (user && (!currentUser || currentUser.id !== user.id)) {
+          currentUser = user;
+          updateAuthUI();
+          setTimeout(pullFromCloud, 0);
+        } else if (!user && currentUser) {
+          currentUser = null;
+          updateAuthUI();
+          // Remove this account's data from the device and start fresh
+          try { localStorage.removeItem(STORAGE_KEY); } catch (e) { }
+          appData = { challenges: [], activeId: null };
+          loadData();
+          lastNoticeKey = null;
+          renderAll();
+        }
+      });
+    }
+
+    // ON DOM LOADED
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      initHeaderDate();
+      initQuoteSection();
+      initFormsAndEvents();
+      renderAll();
+      initSupabase();
+    });
+
+    function initHeaderDate() {
+      const headerDateEl = document.getElementById('headerCurrentDate');
+      if (headerDateEl) {
+        const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+        headerDateEl.textContent = new Date().toLocaleDateString('en-US', options);
+      }
+      const inputStartDate = document.getElementById('inputStartDate');
+      if (inputStartDate) {
+        inputStartDate.value = getFormattedDate(new Date());
+      }
+    }
+
+    // QUOTE ROTATOR WITH FADE TRANSITION
+    function initQuoteSection() {
+      const btnNextQuote = document.getElementById('btnNextQuote');
+      const quoteText = document.getElementById('quoteText');
+      const quoteCitation = document.getElementById('quoteCitation');
+      const quoteContainer = document.getElementById('quoteContainer');
+
+      let currentQuoteIdx = Math.floor(Math.random() * JULIA_CAMERON_QUOTES.length);
+
+      function displayQuote(idx) {
+        const q = JULIA_CAMERON_QUOTES[idx];
+        if (!q) return;
+        quoteText.textContent = `"${q.text}"`;
+        quoteCitation.innerHTML = `— Julia Cameron, <cite class="not-italic">${q.citation.split(',')[0]}</cite>`;
+      }
+
+      displayQuote(currentQuoteIdx);
+
+      if (btnNextQuote) {
+        btnNextQuote.addEventListener('click', () => {
+          quoteContainer.classList.add('out');
+          setTimeout(() => {
+            currentQuoteIdx = (currentQuoteIdx + 1) % JULIA_CAMERON_QUOTES.length;
+            displayQuote(currentQuoteIdx);
+            quoteContainer.classList.remove('out');
+          }, 300);
+        });
+      }
+    }
+
+    // EVENT LISTENERS & FORMS
+    function initFormsAndEvents() {
+      // Create Challenge Form
+      const createForm = document.getElementById('createChallengeForm');
+      if (createForm) {
+        createForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const title = document.getElementById('inputTitle').value.trim();
+          const duration = parseInt(document.getElementById('inputDuration').value, 10);
+          const startDate = document.getElementById('inputStartDate').value;
+
+          if (!title || !startDate) return;
+
+          const newId = 'challenge_' + Date.now();
+          const newChallenge = {
+            id: newId,
+            title,
+            duration,
+            startDate,
+            createdAt: Date.now(),
+            tasks: makeTasks(title, startDate, duration),
+            logs: {},
+            moods: {}
+          };
+
+          appData.challenges.unshift(newChallenge);
+          appData.activeId = newId;
+          editingTaskId = null;
+          saveData();
+          createForm.reset();
+          document.getElementById('inputStartDate').value = getFormattedDate(new Date());
+          renderAll();
+        });
+      }
+
+      // Filter Pills
+      const filterPills = document.getElementById('filterPills');
+      if (filterPills) {
+        filterPills.addEventListener('click', (e) => {
+          const target = e.target.closest('.filter-btn');
+          if (!target) return;
+          activeFilter = target.dataset.filter;
+
+          filterPills.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-sage', 'text-white');
+            btn.classList.add('bg-paper-200', 'text-ink');
+          });
+          target.classList.remove('bg-paper-200', 'text-ink');
+          target.classList.add('bg-sage', 'text-white');
+
+          renderChallengeList();
+        });
+      }
+
+      // Date Navigator for Practice
+      const btnPrevDay = document.getElementById('btnPrevDay');
+      const btnNextDay = document.getElementById('btnNextDay');
+      if (btnPrevDay && btnNextDay) {
+        btnPrevDay.addEventListener('click', () => changeSelectedDate(-1));
+        btnNextDay.addEventListener('click', () => changeSelectedDate(1));
+      }
+
+      // Add Task Form: toggle, cancel, submit
+      const btnAddStepPrompt = document.getElementById('btnAddStepPrompt');
+      const addStepForm = document.getElementById('addStepForm');
+      const btnCancelAddStep = document.getElementById('btnCancelAddStep');
+
+      function closeAddTaskForm() {
+        addStepForm.classList.add('hidden');
+        addStepForm.reset();
+      }
+
+      if (btnAddStepPrompt && addStepForm) {
+        btnAddStepPrompt.addEventListener('click', () => {
+          const c = getActiveChallenge();
+          if (!c) return;
+          addStepForm.classList.toggle('hidden');
+          if (!addStepForm.classList.contains('hidden')) {
+            document.getElementById('inputNewStepStart').value = c.startDate;
+            document.getElementById('inputNewStepEnd').value = getChallengeEnd(c);
+            document.getElementById('inputNewStep').focus();
+          }
+        });
+      }
+
+      if (btnCancelAddStep && addStepForm) {
+        btnCancelAddStep.addEventListener('click', closeAddTaskForm);
+      }
+
+      if (addStepForm) {
+        addStepForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const c = getActiveChallenge();
+          const text = document.getElementById('inputNewStep').value.trim();
+          if (!text || !c) return;
+
+          let start = document.getElementById('inputNewStepStart').value || c.startDate;
+          let end = document.getElementById('inputNewStepEnd').value || getChallengeEnd(c);
+          if (end < start) { const swap = start; start = end; end = swap; }
+
+          c.tasks.push({ id: newTaskId(), text, start, end });
+          saveData();
+          closeAddTaskForm();
+          renderAll();
+        });
+      }
+
+      // Mood Picker & Form Submit
+      const moodGrid = document.getElementById('moodPickerGrid');
+      if (moodGrid) {
+        moodGrid.addEventListener('click', (e) => {
+          const btn = e.target.closest('.mood-btn');
+          if (!btn) return;
+          selectedMood = btn.dataset.mood;
+          moodGrid.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('ring-2', 'ring-plum', 'bg-paper-200'));
+          btn.classList.add('ring-2', 'ring-plum', 'bg-paper-200');
+        });
+      }
+
+      const moodForm = document.getElementById('moodJournalForm');
+      if (moodForm) {
+        moodForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const noteText = document.getElementById('inputJournalNote').value.trim();
+          const activeChallenge = getActiveChallenge();
+          if (!activeChallenge) return;
+
+          if (!activeChallenge.moods) activeChallenge.moods = {};
+          activeChallenge.moods[selectedDateStr] = {
+            mood: selectedMood,
+            text: noteText,
+            timestamp: Date.now()
+          };
+
+          saveData();
+          renderWeeklyCalendar();
+        });
+      }
+    }
+
+    function changeSelectedDate(offsetDays) {
+      const cur = new Date(selectedDateStr + 'T00:00:00');
+      cur.setDate(cur.getDate() + offsetDays);
+      selectedDateStr = getFormattedDate(cur);
+      editingTaskId = null;
+      renderPracticeSection();
+      renderNoticeSection();
+      renderWeeklyCalendar();
+    }
+
+    // MAIN RENDER ALL FUNCTION
+    function renderAll() {
+      renderHeroOverview();
+      renderChallengeList();
+      renderPracticeSection();
+      if (lastNoticeKey !== `${appData.activeId}|${selectedDateStr}`) renderNoticeSection();
+      renderWeeklyCalendar();
+    }
+
+    // HERO STATS OVERVIEW
+    function renderHeroOverview() {
+      const overviewEl = document.getElementById('heroStatsOverview');
+      if (!overviewEl) return;
+      const total = appData.challenges.length;
+      if (total === 0) {
+        overviewEl.textContent = 'No challenges yet';
+        return;
+      }
+      const activeCount = appData.challenges.filter(c => getChallengeStatus(c) === 'active').length;
+      overviewEl.innerHTML = `<span class="text-sage-dark">${activeCount} Active</span> · ${total} Total`;
+    }
+
+    // CHALLENGE STATUS CALCULATOR
+    function getChallengeStatus(challenge) {
+      const todayStr = getFormattedDate(new Date());
+      const start = challenge.startDate;
+      const duration = challenge.duration || 21;
+      const endStr = getChallengeEnd(challenge);
+
+      // Check if 100% completed or days finished
+      if (countDoneDays(challenge) >= duration) return 'completed';
+
+      if (todayStr < start) return 'upcoming';
+      if (todayStr > endStr) return 'pastdue';
+      return 'active';
+    }
+
+    const STATUS_LABELS = {
+      active: 'In progress',
+      completed: 'Completed',
+      pastdue: 'Past due',
+      upcoming: 'Upcoming'
+    };
+
+    // RENDER SECTION 02: CHALLENGE LIST
+    function renderChallengeList() {
+      const container = document.getElementById('challengeListContainer');
+      const emptyEl = document.getElementById('challengeEmpty');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      const filtered = appData.challenges.filter(c => {
+        const status = getChallengeStatus(c);
+        if (activeFilter === 'all') return true;
+        return status === activeFilter;
+      });
+
+      if (filtered.length === 0) {
+        emptyEl.classList.remove('hidden');
+        emptyEl.classList.add('flex');
+        return;
+      } else {
+        emptyEl.classList.add('hidden');
+        emptyEl.classList.remove('flex');
+      }
+
+      filtered.forEach(c => {
+        const status = getChallengeStatus(c);
+        const isSelected = c.id === appData.activeId;
+        const duration = c.duration || 21;
+        const completedDays = countDoneDays(c);
+        const percent = Math.min(100, Math.round((completedDays / duration) * 100));
+
+        let badgeBg = 'bg-sage-light text-sage-deep';
+        if (status === 'completed') badgeBg = 'bg-ochre-light text-ochre-dark';
+        if (status === 'pastdue') badgeBg = 'bg-paper-300 text-ink/70';
+        if (status === 'upcoming') badgeBg = 'bg-mist-light text-mist-dark';
+
+        const card = document.createElement('div');
+        card.className = `p-4 rounded-xl border transition cursor-pointer relative overflow-hidden ${isSelected
+            ? 'bg-paper-50 border-sage shadow-sm ring-1 ring-sage/40'
+            : 'bg-paper-50/70 border-paper-300 hover:border-paper-400'
+          }`;
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <span class="t-badge inline-block px-2.5 py-1.5 rounded-full ${badgeBg}">${STATUS_LABELS[status]}</span>
+              <h3 class="t-h3 mt-2">${escapeHtml(c.title)}</h3>
+            </div>
+            <button type="button" class="btn-delete-challenge w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:text-terra hover:bg-terra-light/50 transition" title="Delete challenge" aria-label="Delete challenge">
+              ✕
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="t-meta">${completedDays}/${duration} days</span>
+            <span class="t-stat text-sage-dark">${percent}%</span>
+          </div>
+          <div class="w-full bg-paper-200 h-2 rounded-full overflow-hidden">
+            <div class="bg-sage h-full transition-all duration-500 rounded-full" style="width: ${percent}%"></div>
+          </div>
+        `;
+
+        // Card Click Handler
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-delete-challenge')) {
+            e.stopPropagation();
+            if (confirm(`Remove "${c.title}" from your garden?`)) {
+              appData.challenges = appData.challenges.filter(item => item.id !== c.id);
+              if (appData.activeId === c.id) {
+                appData.activeId = appData.challenges[0] ? appData.challenges[0].id : null;
+              }
+              editingTaskId = null;
+              saveData();
+              renderAll();
+            }
+            return;
+          }
+
+          appData.activeId = c.id;
+          editingTaskId = null;
+          saveData();
+          renderAll();
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    // RENDER SECTION 03: PRACTICE
+    function renderPracticeSection() {
+      const activeContainer = document.getElementById('practiceActiveContainer');
+      const detailEmpty = document.getElementById('detailEmpty');
+      const displayDateEl = document.getElementById('displaySelectedDate');
+      const stepsListEl = document.getElementById('dailyStepsList');
+
+      if (displayDateEl) {
+        displayDateEl.textContent = formatDateDisplay(selectedDateStr);
+      }
+
+      const activeChallenge = getActiveChallenge();
+
+      if (!activeChallenge) {
+        activeContainer.classList.add('hidden');
+        detailEmpty.classList.remove('hidden');
+        detailEmpty.classList.add('flex');
+        return;
+      }
+
+      activeContainer.classList.remove('hidden');
+      detailEmpty.classList.add('hidden');
+      detailEmpty.classList.remove('flex');
+
+      // Fill Active Header
+      document.getElementById('activeChallengeTitle').textContent = activeChallenge.title;
+
+      // Stats
+      const duration = activeChallenge.duration || 21;
+      const completedDays = countDoneDays(activeChallenge);
+      const percent = Math.min(100, Math.round((completedDays / duration) * 100));
+
+      document.getElementById('activeChallengePercent').textContent = `${percent}% Complete`;
+      document.getElementById('activeChallengeStreak').textContent = `${completedDays} Days Rooted`;
+
+      // Render Tasks
+      const dayLog = activeChallenge.logs[selectedDateStr];
+      stepsListEl.innerHTML = '';
+
+      if (activeChallenge.tasks.length === 0) {
+        stepsListEl.innerHTML = `<p class="t-meta">No tasks yet. Add one above.</p>`;
+        return;
+      }
+
+      activeChallenge.tasks.forEach(task => {
+        if (task.id === editingTaskId) {
+          const editor = buildTaskEditor(activeChallenge, task);
+          stepsListEl.appendChild(editor);
+          editor.querySelector('.edit-name').focus();
+        } else {
+          stepsListEl.appendChild(buildTaskRow(activeChallenge, task, dayLog));
+        }
+      });
+    }
+
+    function buildTaskRow(c, task, dayLog) {
+      const scheduled = isTaskScheduled(task, selectedDateStr);
+      const done = !!(dayLog && dayLog.done && dayLog.done[task.id]) && scheduled;
+
+      const row = document.createElement('div');
+      row.className = `flex items-start gap-2 p-3 rounded-xl border transition ${done ? 'bg-sage-light/40 border-sage-soft' : 'bg-paper-50 border-paper-300'
+        } ${scheduled ? '' : 'opacity-60'}`;
+
+      row.innerHTML = `
+        <label class="flex items-start gap-3 flex-1 min-w-0 ${scheduled ? 'cursor-pointer' : 'cursor-default'}">
+          <input type="checkbox" ${done ? 'checked' : ''} ${scheduled ? '' : 'disabled'} class="task-checkbox mt-1 w-4 h-4 rounded shrink-0 accent-sage" />
+          <span class="min-w-0">
+            <span class="t-body block ${done ? 'line-through opacity-60' : ''}">${escapeHtml(task.text)}</span>
+            <span class="t-meta block">${periodLabel(c, task)}${scheduled ? '' : ' · Not scheduled'}</span>
+          </span>
+        </label>
+        <div class="flex items-center shrink-0">
+          <button type="button" class="btn-edit-task w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:text-ink hover:bg-paper-200 transition" title="Edit task" aria-label="Edit task">✎</button>
+          <button type="button" class="btn-delete-task w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:text-terra hover:bg-terra-light/50 transition" title="Delete task" aria-label="Delete task">✕</button>
+        </div>
+      `;
+
+      // Check / uncheck for the selected day
+      row.querySelector('.task-checkbox').addEventListener('change', (e) => {
+        if (!c.logs[selectedDateStr]) c.logs[selectedDateStr] = { completed: false, done: {} };
+        const log = c.logs[selectedDateStr];
+        if (!log.done) log.done = {};
+        log.done[task.id] = e.target.checked;
+        log.completed = isDayDone(c, selectedDateStr);
+        saveData();
+        renderAll();
+      });
+
+      // Edit
+      row.querySelector('.btn-edit-task').addEventListener('click', () => {
+        editingTaskId = task.id;
+        renderPracticeSection();
+      });
+
+      // Delete
+      row.querySelector('.btn-delete-task').addEventListener('click', () => {
+        c.tasks = c.tasks.filter(t => t.id !== task.id);
+        Object.values(c.logs).forEach(log => {
+          if (log.done) delete log.done[task.id];
+        });
+        if (editingTaskId === task.id) editingTaskId = null;
+        saveData();
+        renderAll();
+      });
+
+      return row;
+    }
+
+    function buildTaskEditor(c, task) {
+      const form = document.createElement('form');
+      form.className = 'p-3 rounded-xl bg-paper-50 border border-sage space-y-2.5';
+      form.innerHTML = `
+        <input type="text" class="edit-name w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" value="${escapeHtml(task.text)}" required aria-label="Task name" />
+        <div class="grid grid-cols-2 gap-2.5">
+          <label class="block">
+            <span class="t-label block mb-1">From</span>
+            <input type="date" class="edit-start w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" value="${task.start}" required />
+          </label>
+          <label class="block">
+            <span class="t-label block mb-1">To</span>
+            <input type="date" class="edit-end w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" value="${task.end}" required />
+          </label>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" class="btn-cancel-edit px-3.5 py-2 rounded-lg t-btn text-ink/70 hover:bg-paper-200 transition">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-sage text-white t-btn hover:bg-sage-dark transition">Save</button>
+        </div>
+      `;
+
+      function cancelEdit() {
+        editingTaskId = null;
+        renderPracticeSection();
+      }
+
+      form.querySelector('.btn-cancel-edit').addEventListener('click', cancelEdit);
+      form.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') cancelEdit();
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = form.querySelector('.edit-name').value.trim();
+        if (!text) return;
+        let start = form.querySelector('.edit-start').value || c.startDate;
+        let end = form.querySelector('.edit-end').value || getChallengeEnd(c);
+        if (end < start) { const swap = start; start = end; end = swap; }
+
+        task.text = text;
+        task.start = start;
+        task.end = end;
+        editingTaskId = null;
+        saveData();
+        renderAll();
+      });
+
+      return form;
+    }
+
+    // RENDER SECTION 04: NOTICE (loads the saved note of the active challenge for the selected day)
+    function renderNoticeSection() {
+      const c = getActiveChallenge();
+      lastNoticeKey = `${appData.activeId}|${selectedDateStr}`;
+
+      const contextEl = document.getElementById('noticeContext');
+      const noteEl = document.getElementById('inputJournalNote');
+      const moodGrid = document.getElementById('moodPickerGrid');
+      const saved = c && c.moods ? c.moods[selectedDateStr] : null;
+
+      contextEl.textContent = c ? `${c.title} · ${formatDateDisplay(selectedDateStr)}` : '';
+      noteEl.value = saved ? (saved.text || '') : '';
+      selectedMood = saved ? saved.mood : 'Calm';
+
+      moodGrid.querySelectorAll('.mood-btn').forEach(b => {
+        b.classList.remove('ring-2', 'ring-plum', 'bg-paper-200');
+        if (saved && b.dataset.mood === saved.mood) b.classList.add('ring-2', 'ring-plum', 'bg-paper-200');
+      });
+    }
+
+    // RENDER SECTION 05: LOOK BACK (ALL CHALLENGES, SELECTED DAY)
+    const MOOD_EMOJI = {
+      Calm: '🌿',
+      Joyful: '✨',
+      Reflective: '🌙',
+      Tired: '🌧️',
+      Creative: '🎨',
+      Anxious: '🍃'
+    };
+
+    // A day is marked when every challenge that has tasks on it is fully done
+    function isAllDone(dateStr) {
+      const relevant = appData.challenges.filter(c =>
+        (c.tasks || []).some(t => isTaskScheduled(t, dateStr)) || isDayDone(c, dateStr)
+      );
+      return relevant.length > 0 && relevant.every(c => isDayDone(c, dateStr));
+    }
+
+    function renderWeeklyCalendar() {
+      const grid = document.getElementById('weeklyCalendarGrid');
+      const dayDetail = document.getElementById('dayDetail');
+      const listEl = document.getElementById('dayChallengeList');
+      const weekEmpty = document.getElementById('weekSummaryEmpty');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+
+      // Generate current week starting Monday
+      const curr = new Date(selectedDateStr + 'T00:00:00');
+      const dayOfWeek = curr.getDay(); // 0 is Sun
+      const distanceToMon = (dayOfWeek + 6) % 7;
+      const monday = new Date(curr);
+      monday.setDate(curr.getDate() - distanceToMon);
+
+      for (let i = 0; i < 7; i++) {
+        const dateObj = new Date(monday);
+        dateObj.setDate(monday.getDate() + i);
+        const dateStr = getFormattedDate(dateObj);
+        const dayLabel = dateObj.toLocaleDateString('en-US', { weekday: 'narrow' });
+        const dateNum = dateObj.getDate();
+
+        const isCompleted = isAllDone(dateStr);
+        const isToday = dateStr === selectedDateStr;
+
+        const cell = document.createElement('div');
+        cell.className = `flex flex-col items-center p-2 rounded-xl border text-center transition cursor-pointer ${isToday ? 'ring-2 ring-sage' : ''
+          } ${isCompleted ? 'bg-sage-light border-sage text-sage-deep' : 'bg-paper-50 border-paper-300 text-mist-dark'
+          }`;
+
+        cell.innerHTML = `
+          <span class="t-label">${dayLabel}</span>
+          <span class="t-stat my-0.5">${dateNum}</span>
+          <span class="t-body">${isCompleted ? '✦' : '◦'}</span>
+        `;
+
+        cell.addEventListener('click', () => {
+          selectedDateStr = dateStr;
+          editingTaskId = null;
+          renderPracticeSection();
+          renderNoticeSection();
+          renderWeeklyCalendar();
+        });
+
+        grid.appendChild(cell);
+      }
+
+      // Results of every challenge for the selected day
+      if (appData.challenges.length === 0) {
+        listEl.innerHTML = '';
+        dayDetail.classList.add('hidden');
+        weekEmpty.classList.remove('hidden');
+        weekEmpty.classList.add('flex');
+        return;
+      }
+
+      weekEmpty.classList.add('hidden');
+      weekEmpty.classList.remove('flex');
+      dayDetail.classList.remove('hidden');
+      document.getElementById('dayDetailDate').textContent = formatDateDisplay(selectedDateStr);
+
+      listEl.innerHTML = '';
+      appData.challenges.forEach(c => {
+        const dayTasks = (c.tasks || []).filter(t => isTaskScheduled(t, selectedDateStr));
+        const log = c.logs[selectedDateStr];
+        const doneCount = dayTasks.filter(t => log && log.done && log.done[t.id]).length;
+        const percent = dayTasks.length ? Math.round((doneCount / dayTasks.length) * 100) : 0;
+        const mood = c.moods && c.moods[selectedDateStr];
+
+        const card = document.createElement('div');
+        card.className = `p-3.5 rounded-xl border bg-paper-50 cursor-pointer transition ${c.id === appData.activeId ? 'border-sage ring-1 ring-sage/40' : 'border-paper-300 hover:border-paper-400'}`;
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <span class="t-stat">${escapeHtml(c.title)}</span>
+            <span class="t-stat text-sage-dark shrink-0">${dayTasks.length ? `${doneCount}/${dayTasks.length} tasks` : 'No tasks'}</span>
+          </div>
+          <div class="w-full bg-paper-200 h-2 rounded-full overflow-hidden">
+            <div class="bg-sage h-full transition-all duration-500 rounded-full" style="width: ${percent}%"></div>
+          </div>
+          ${mood ? `
+            <div class="mt-3 pt-3 border-t border-paper-200">
+              <span class="t-stat text-plum">${MOOD_EMOJI[mood.mood] || '🌿'} ${escapeHtml(mood.mood)}</span>
+              ${mood.text ? `<p class="t-body italic bg-paper-200/50 p-3 rounded-lg border border-paper-300/60 mt-2">${escapeHtml(mood.text)}</p>` : ''}
+            </div>` : ''}
+        `;
+        card.addEventListener('click', () => {
+          appData.activeId = c.id;
+          editingTaskId = null;
+          saveData();
+          renderAll();
+          document.getElementById('notice-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+        listEl.appendChild(card);
+      });
+    }
+
+    // Helper: Escape HTML
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function (m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        }[m];
+      });
+    }
+  </script>
+</body>
+
+</html>
