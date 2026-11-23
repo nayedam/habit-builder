@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-[#FDFBF7] text-[#2C3639]">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,9 +9,7 @@
   <!-- Google Fonts: Playfair Display for headers & Inter for body -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -72,145 +69,52 @@
   <style>
     /* Global Ambient Keyframe Animations */
     @keyframes slowSpin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-
     @keyframes gentlePulse {
-
-      0%,
-      100% {
-        opacity: 0.85;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1.04);
-      }
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
     }
-
     @keyframes sway {
-
-      0%,
-      100% {
-        transform: rotate(-3deg);
-      }
-
-      50% {
-        transform: rotate(4deg);
-      }
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(4deg); }
     }
-
     @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-7px) rotate(2deg);
-      }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
     }
-
     @keyframes breath {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.8;
-      }
-
-      50% {
-        transform: scale(1.06);
-        opacity: 1;
-      }
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.06); opacity: 1; }
     }
-
     @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-
-      100% {
-        background-position: 200% 0;
-      }
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
-
     @keyframes petalBurst {
-      0% {
-        transform: scale(0.6) translateY(0);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.2) translateY(-12px);
-        opacity: 0.8;
-      }
-
-      100% {
-        transform: scale(1.4) translateY(-22px);
-        opacity: 0;
-      }
+      0% { transform: scale(0.6) translateY(0); opacity: 1; }
+      50% { transform: scale(1.2) translateY(-12px); opacity: 0.8; }
+      100% { transform: scale(1.4) translateY(-22px); opacity: 0; }
     }
 
-    .animate-spin-slow {
-      animation: slowSpin 36s linear infinite;
-    }
-
-    .animate-pulse-gentle {
-      animation: gentlePulse 4s ease-in-out infinite;
-    }
-
-    .animate-sway {
-      animation: sway 5s ease-in-out infinite;
-    }
-
-    .animate-sway-delayed {
-      animation: sway 6s ease-in-out 1.5s infinite;
-    }
-
-    .animate-float {
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .animate-float-delayed {
-      animation: float 7s ease-in-out 2s infinite;
-    }
-
-    .animate-breath {
-      animation: breath 4s ease-in-out infinite;
-    }
+    .animate-spin-slow { animation: slowSpin 36s linear infinite; }
+    .animate-pulse-gentle { animation: gentlePulse 4s ease-in-out infinite; }
+    .animate-sway { animation: sway 5s ease-in-out infinite; }
+    .animate-sway-delayed { animation: sway 6s ease-in-out 1.5s infinite; }
+    .animate-float { animation: float 5s ease-in-out infinite; }
+    .animate-float-delayed { animation: float 7s ease-in-out 2s infinite; }
+    .animate-breath { animation: breath 4s ease-in-out infinite; }
 
     /* Custom Scrollbars & Transitions */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #F4EFE6;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #C6D4C5;
-      border-radius: 9999px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #7C9082;
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #F4EFE6; }
+    ::-webkit-scrollbar-thumb { background: #C6D4C5; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7C9082; }
 
     .botanical-card {
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .botanical-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 28px -6px rgba(44, 54, 57, 0.08);
@@ -220,7 +124,6 @@
     .task-check-burst {
       position: relative;
     }
-
     .task-check-burst.checked::after {
       content: '✦';
       position: absolute;
@@ -236,7 +139,6 @@
     .quote-fade {
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
-
     .quote-fade.out {
       opacity: 0;
       transform: translateY(4px);
@@ -252,122 +154,27 @@
       --f-serif: 'Playfair Display', Georgia, serif;
       --f-sans: 'Inter', sans-serif;
     }
+    .t-display { font-family: var(--f-serif); font-weight: 600; font-size: clamp(2.75rem, 7vw, 4.75rem); line-height: 1.08; letter-spacing: -0.02em; }
+    .t-h1      { font-family: var(--f-serif); font-weight: 600; font-size: 1.75rem; line-height: 1.2; letter-spacing: -0.01em; }
+    .t-h2      { font-family: var(--f-serif); font-weight: 600; font-size: 1.375rem; line-height: 1.25; }
+    .t-h3      { font-family: var(--f-serif); font-weight: 600; font-size: 1.125rem; line-height: 1.35; }
+    .t-quote   { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-size: 1.375rem; line-height: 1.55; }
+    .t-body    { font-family: var(--f-sans); font-weight: 400; font-size: 0.9375rem; line-height: 1.6; }
+    .t-label   { font-family: var(--f-sans); font-weight: 600; font-size: 0.75rem; line-height: 1.3; letter-spacing: 0.06em; text-transform: uppercase; }
+    .t-meta    { font-family: var(--f-sans); font-weight: 400; font-size: 0.8125rem; line-height: 1.45; }
+    .t-stat    { font-family: var(--f-sans); font-weight: 600; font-size: 0.875rem; line-height: 1.3; }
+    .t-badge   { font-family: var(--f-sans); font-weight: 600; font-size: 0.75rem; line-height: 1; }
+    .t-btn     { font-family: var(--f-sans); font-weight: 500; font-size: 0.875rem; line-height: 1.25; }
+    .t-input   { font-family: var(--f-sans); font-weight: 400; font-size: 0.9375rem; line-height: 1.4; }
 
-    .t-display {
-      font-family: var(--f-serif);
-      font-weight: 600;
-      font-size: clamp(2.75rem, 7vw, 4.75rem);
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-    }
-
-    .t-h1 {
-      font-family: var(--f-serif);
-      font-weight: 600;
-      font-size: 1.75rem;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-
-    .t-h2 {
-      font-family: var(--f-serif);
-      font-weight: 600;
-      font-size: 1.375rem;
-      line-height: 1.25;
-    }
-
-    .t-h3 {
-      font-family: var(--f-serif);
-      font-weight: 600;
-      font-size: 1.125rem;
-      line-height: 1.35;
-    }
-
-    .t-quote {
-      font-family: var(--f-serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.375rem;
-      line-height: 1.55;
-    }
-
-    .t-body {
-      font-family: var(--f-sans);
-      font-weight: 400;
-      font-size: 0.9375rem;
-      line-height: 1.6;
-    }
-
-    .t-label {
-      font-family: var(--f-sans);
-      font-weight: 600;
-      font-size: 0.75rem;
-      line-height: 1.3;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .t-meta {
-      font-family: var(--f-sans);
-      font-weight: 400;
-      font-size: 0.8125rem;
-      line-height: 1.45;
-    }
-
-    .t-stat {
-      font-family: var(--f-sans);
-      font-weight: 600;
-      font-size: 0.875rem;
-      line-height: 1.3;
-    }
-
-    .t-badge {
-      font-family: var(--f-sans);
-      font-weight: 600;
-      font-size: 0.75rem;
-      line-height: 1;
-    }
-
-    .t-btn {
-      font-family: var(--f-sans);
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: 1.25;
-    }
-
-    .t-input {
-      font-family: var(--f-sans);
-      font-weight: 400;
-      font-size: 0.9375rem;
-      line-height: 1.4;
-    }
-
-    :where(.t-display, .t-h1, .t-h2, .t-h3, .t-quote) {
-      color: #2C3639;
-    }
-
-    :where(.t-body) {
-      color: #3B4649;
-    }
-
-    :where(.t-label) {
-      color: #3F4D51;
-    }
-
-    :where(.t-meta) {
-      color: #566A71;
-    }
-
-    :where(.t-stat) {
-      color: #2C3639;
-    }
-
-    :where(.t-input) {
-      color: #2C3639;
-    }
+    :where(.t-display, .t-h1, .t-h2, .t-h3, .t-quote) { color: #2C3639; }
+    :where(.t-body)  { color: #3B4649; }
+    :where(.t-label) { color: #3F4D51; }
+    :where(.t-meta)  { color: #566A71; }
+    :where(.t-stat)  { color: #2C3639; }
+    :where(.t-input) { color: #2C3639; }
   </style>
 </head>
-
 <body class="h-full font-sans antialiased bg-[#FDFBF7] text-[#2C3639] selection:bg-sage-soft selection:text-sage-deep">
   <!-- Top Ambient Banner Container -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
@@ -376,37 +183,31 @@
     <header class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 border-b border-paper-300 pb-5">
       <div class="flex items-center gap-3">
         <!-- Brand Mark SVG -->
-        <div
-          class="relative w-11 h-11 flex items-center justify-center bg-sage-light rounded-full p-2 border border-sage-soft/60 shadow-sm">
-          <svg class="w-7 h-7 text-sage animate-spin-slow" viewBox="0 0 64 64" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M32 4C32 4 36 20 52 20C52 20 36 24 32 40C32 40 28 24 12 20C12 20 28 20 32 4Z" fill="currentColor"
-              opacity="0.85" />
-            <path d="M32 24C32 24 40 32 40 48C40 48 32 44 32 32C32 32 32 44 24 48C24 48 24 32 32 24Z" fill="#C86D51"
-              opacity="0.9" />
-            <circle cx="32" cy="32" r="3" fill="#D99B26" />
+        <div class="relative w-11 h-11 flex items-center justify-center bg-sage-light rounded-full p-2 border border-sage-soft/60 shadow-sm">
+          <svg class="w-7 h-7 text-sage animate-spin-slow" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 4C32 4 36 20 52 20C52 20 36 24 32 40C32 40 28 24 12 20C12 20 28 20 32 4Z" fill="currentColor" opacity="0.85"/>
+            <path d="M32 24C32 24 40 32 40 48C40 48 32 44 32 32C32 32 32 44 24 48C24 48 24 32 32 24Z" fill="#C86D51" opacity="0.9"/>
+            <circle cx="32" cy="32" r="3" fill="#D99B26"/>
           </svg>
         </div>
         <h1 class="t-h1">Habit Builder</h1>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-3">
-        <!-- Cloud account (shown only when Supabase is configured) -->
-        <div id="authArea" class="hidden items-center gap-2">
-          <span id="syncStatus" class="t-meta"></span>
-          <span id="authEmail" class="t-meta hidden max-w-[180px] truncate"></span>
-          <button id="btnAuth" type="button"
-            class="px-4 py-1.5 rounded-full bg-sage text-white t-btn hover:bg-sage-dark transition">Sign in</button>
-        </div>
+      <!-- Cloud account (shown only when Supabase is configured) -->
+      <div id="authArea" class="hidden items-center gap-2">
+        <span id="syncStatus" class="t-meta"></span>
+        <span id="authEmail" class="t-meta hidden max-w-[180px] truncate"></span>
+        <button id="btnAuth" type="button" class="px-4 py-1.5 rounded-full bg-sage text-white t-btn hover:bg-sage-dark transition">Sign in</button>
+      </div>
 
-        <!-- Date & Status Tag -->
-        <div class="flex items-center gap-2 bg-paper-200/80 px-3.5 py-1.5 rounded-full border border-paper-300">
-          <svg class="w-4 h-4 text-terra animate-sway" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span id="headerCurrentDate" class="t-stat">Today</span>
-        </div>
+      <!-- Date & Status Tag -->
+      <div class="flex items-center gap-2 bg-paper-200/80 px-3.5 py-1.5 rounded-full border border-paper-300">
+        <svg class="w-4 h-4 text-terra animate-sway" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span id="headerCurrentDate" class="t-stat">Today</span>
+      </div>
       </div>
     </header>
 
@@ -414,16 +215,13 @@
     <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
       <!-- HERO (full row) -->
-      <div
-        class="lg:col-span-12 bg-gradient-to-br from-paper-200 via-paper-100 to-sage-light/40 rounded-2xl p-6 sm:p-8 border border-paper-300 relative overflow-hidden flex flex-col justify-between shadow-sm">
+      <div class="lg:col-span-12 bg-gradient-to-br from-paper-200 via-paper-100 to-sage-light/40 rounded-2xl p-6 sm:p-8 border border-paper-300 relative overflow-hidden flex flex-col justify-between shadow-sm">
 
         <!-- Background Ambient SVG Layer -->
         <div class="absolute inset-0 pointer-events-none opacity-40">
-          <svg class="w-full h-full" viewBox="0 0 500 300" fill="none" preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg">
-            <circle cx="420" cy="60" r="80" fill="#F7E8C8" opacity="0.6" class="animate-pulse-gentle" />
-            <path d="M-20 280 C 100 200, 250 320, 400 240 C 480 200, 520 260, 550 300 L550 350 L-20 350 Z"
-              fill="#C6D4C5" opacity="0.4" />
+          <svg class="w-full h-full" viewBox="0 0 500 300" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="420" cy="60" r="80" fill="#F7E8C8" opacity="0.6" class="animate-pulse-gentle"/>
+            <path d="M-20 280 C 100 200, 250 320, 400 240 C 480 200, 520 260, 550 300 L550 350 L-20 350 Z" fill="#C6D4C5" opacity="0.4"/>
           </svg>
         </div>
 
@@ -435,51 +233,45 @@
         <!-- Layered Botanical Hero SVG Illustration -->
         <div class="relative z-10 mt-6 pt-4 flex items-center justify-between border-t border-paper-300/80">
           <div class="flex items-center gap-3">
-            <svg class="w-16 h-16 sm:w-20 sm:h-20 text-sage shrink-0" viewBox="0 0 100 100" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-16 h-16 sm:w-20 sm:h-20 text-sage shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Golden Warm Sun -->
-              <circle cx="50" cy="35" r="16" fill="#D99B26" opacity="0.3" class="animate-pulse-gentle" />
+              <circle cx="50" cy="35" r="16" fill="#D99B26" opacity="0.3" class="animate-pulse-gentle"/>
               <!-- Stems & Floating Leaves -->
-              <path d="M50 85 C50 60, 45 40, 50 15" stroke="#586A5E" stroke-width="2.5" stroke-linecap="round" />
-              <path d="M50 65 C35 55, 20 60, 25 45 C35 45, 45 55, 50 65Z" fill="#7C9082" class="animate-sway" />
-              <path d="M50 50 C65 40, 80 45, 75 30 C65 30, 55 40, 50 50Z" fill="#C86D51" class="animate-sway-delayed" />
-              <path d="M50 35 C38 25, 28 30, 32 18 C42 18, 48 26, 50 35Z" fill="#A2B5BB" class="animate-float" />
-              <circle cx="72" cy="20" r="2" fill="#D99B26" class="animate-pulse-gentle" />
-              <circle cx="28" cy="25" r="1.5" fill="#C86D51" class="animate-pulse-gentle" />
+              <path d="M50 85 C50 60, 45 40, 50 15" stroke="#586A5E" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M50 65 C35 55, 20 60, 25 45 C35 45, 45 55, 50 65Z" fill="#7C9082" class="animate-sway"/>
+              <path d="M50 50 C65 40, 80 45, 75 30 C65 30, 55 40, 50 50Z" fill="#C86D51" class="animate-sway-delayed"/>
+              <path d="M50 35 C38 25, 28 30, 32 18 C42 18, 48 26, 50 35Z" fill="#A2B5BB" class="animate-float"/>
+              <circle cx="72" cy="20" r="2" fill="#D99B26" class="animate-pulse-gentle"/>
+              <circle cx="28" cy="25" r="1.5" fill="#C86D51" class="animate-pulse-gentle"/>
             </svg>
             <div id="heroStatsOverview" class="t-stat">
               Loading...
             </div>
           </div>
 
-          <a href="#begin-section"
-            class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-sage text-white t-btn hover:bg-sage-dark transition shadow-sm">
+          <a href="#begin-section" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-sage text-white t-btn hover:bg-sage-dark transition shadow-sm">
             <span>+ New Challenge</span>
           </a>
         </div>
 
         <!-- Top Right Watermark SVG -->
-        <svg class="absolute top-3 right-3 w-24 h-24 text-sage-soft/30 pointer-events-none animate-float-delayed"
-          viewBox="0 0 100 100" fill="currentColor">
-          <path d="M50 10 C30 30 20 60 50 90 C80 60 70 30 50 10 Z" />
+        <svg class="absolute top-3 right-3 w-24 h-24 text-sage-soft/30 pointer-events-none animate-float-delayed" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M50 10 C30 30 20 60 50 90 C80 60 70 30 50 10 Z"/>
         </svg>
       </div>
 
       <!-- QUOTE CARD (shifted down one position) -->
-      <div
-        class="lg:col-span-5 bg-paper-100 rounded-2xl p-6 sm:p-8 border border-paper-300 flex flex-col justify-between relative overflow-hidden shadow-sm botanical-card">
+      <div class="lg:col-span-5 bg-paper-100 rounded-2xl p-6 sm:p-8 border border-paper-300 flex flex-col justify-between relative overflow-hidden shadow-sm botanical-card">
         <!-- Decorative Botanical Corner Sprig -->
-        <svg class="absolute -top-4 -right-4 w-20 h-20 text-terra-soft/20 pointer-events-none animate-sway"
-          viewBox="0 0 100 100" fill="currentColor">
-          <path d="M20 80 Q 50 20 80 20 Q 60 50 20 80 Z" />
+        <svg class="absolute -top-4 -right-4 w-20 h-20 text-terra-soft/20 pointer-events-none animate-sway" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M20 80 Q 50 20 80 20 Q 60 50 20 80 Z"/>
         </svg>
 
         <div>
           <!-- Kicker & Sprig Motif -->
           <div class="flex items-center gap-2 mb-4 pb-3 border-b border-paper-200">
-            <svg class="w-4 h-4 text-terra animate-sway" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg class="w-4 h-4 text-terra animate-sway" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
             </svg>
             <span class="t-label text-terra-dark">Creative Inspiration</span>
           </div>
@@ -497,30 +289,23 @@
 
         <!-- Refresh Action Button -->
         <div class="mt-6 pt-4 border-t border-paper-200 flex items-center justify-end">
-          <button id="btnNextQuote"
-            class="inline-flex items-center gap-1.5 t-btn text-terra-dark hover:text-terra transition px-3 py-1.5 rounded-lg hover:bg-terra-light/50 focus:outline-none">
+          <button id="btnNextQuote" class="inline-flex items-center gap-1.5 t-btn text-terra-dark hover:text-terra transition px-3 py-1.5 rounded-lg hover:bg-terra-light/50 focus:outline-none">
             <span>Another quote</span>
-            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
           </button>
         </div>
       </div>
 
       <!-- SECTION 01: BEGIN (Challenge Creation Form) -->
-      <section id="begin-section"
-        class="lg:col-span-7 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card relative">
+      <section id="begin-section" class="lg:col-span-7 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card relative">
         <!-- Header Motif SVG: Sprout -->
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
           <div class="flex items-center gap-2.5">
-            <svg class="w-6 h-6 text-sage animate-sway" viewBox="0 0 32 32" fill="none" stroke="currentColor"
-              stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M16 28V14M16 14C12 10 6 11 6 17C12 17 16 14 16 14ZM16 14C20 10 26 11 26 17C20 17 16 14 16 14Z"
-                fill="#C6D4C5" fill-opacity="0.5" />
-              <circle cx="16" cy="28" r="2" fill="#7C9082" />
+            <svg class="w-6 h-6 text-sage animate-sway" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 28V14M16 14C12 10 6 11 6 17C12 17 16 14 16 14ZM16 14C20 10 26 11 26 17C20 17 16 14 16 14Z" fill="#C6D4C5" fill-opacity="0.5"/>
+              <circle cx="16" cy="28" r="2" fill="#7C9082"/>
             </svg>
             <h2 class="t-h2">01 · Begin</h2>
           </div>
@@ -529,15 +314,13 @@
         <form id="createChallengeForm" class="space-y-4">
           <div>
             <label for="inputTitle" class="t-label block mb-1.5">Challenge Title *</label>
-            <input type="text" id="inputTitle" required placeholder="e.g. Morning Pages & Quiet Coffee"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+            <input type="text" id="inputTitle" required placeholder="e.g. Morning Pages & Quiet Coffee" class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="inputDuration" class="t-label block mb-1.5">Duration (Days)</label>
-              <select id="inputDuration"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition">
+              <select id="inputDuration" class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition">
                 <option value="7">7 Days (Seedling)</option>
                 <option value="14">14 Days (Sprout)</option>
                 <option value="21" selected>21 Days (Habit Root)</option>
@@ -548,15 +331,13 @@
             </div>
             <div>
               <label for="inputStartDate" class="t-label block mb-1.5">Start Date</label>
-              <input type="date" id="inputStartDate" required
-                class="w-full px-3 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+              <input type="date" id="inputStartDate" required class="w-full px-3 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
             </div>
           </div>
 
-          <button type="submit"
-            class="w-full py-3 px-4 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition flex items-center justify-center gap-2 shadow-sm mt-2">
+          <button type="submit" class="w-full py-3 px-4 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition flex items-center justify-center gap-2 shadow-sm mt-2">
             <svg class="w-4 h-4 animate-sway" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
             </svg>
             <span>Plant This Challenge</span>
           </button>
@@ -564,33 +345,24 @@
       </section>
 
       <!-- SECTION 02: MY JOURNEY (Challenge List & Filter) -->
-      <section id="journey-section"
-        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+      <section id="journey-section" class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
         <!-- Header Motif SVG: Dual Leaves -->
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3 border-b border-paper-200">
           <div class="flex items-center gap-2.5">
-            <svg class="w-6 h-6 text-terra animate-sway-delayed" viewBox="0 0 32 32" fill="none" stroke="currentColor"
-              stroke-width="2">
-              <path d="M8 24C8 14 16 8 26 6C24 16 18 24 8 24Z" fill="#F5E5DF" stroke="#C86D51" />
-              <path d="M6 26C12 18 20 16 26 6" stroke="#C86D51" stroke-dasharray="2 2" />
+            <svg class="w-6 h-6 text-terra animate-sway-delayed" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 24C8 14 16 8 26 6C24 16 18 24 8 24Z" fill="#F5E5DF" stroke="#C86D51"/>
+              <path d="M6 26C12 18 20 16 26 6" stroke="#C86D51" stroke-dasharray="2 2"/>
             </svg>
             <h2 class="t-h2">02 · My Journey</h2>
           </div>
 
           <!-- Filter Pill Navigation -->
           <div class="flex flex-wrap items-center gap-1.5" id="filterPills">
-            <button data-filter="all"
-              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-sage text-white transition">All</button>
-            <button data-filter="active"
-              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">In
-              progress</button>
-            <button data-filter="completed"
-              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Completed</button>
-            <button data-filter="pastdue"
-              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Past
-              due</button>
-            <button data-filter="upcoming"
-              class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Upcoming</button>
+            <button data-filter="all" class="filter-btn px-3 py-1.5 rounded-full t-badge bg-sage text-white transition">All</button>
+            <button data-filter="active" class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">In progress</button>
+            <button data-filter="completed" class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Completed</button>
+            <button data-filter="pastdue" class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Past due</button>
+            <button data-filter="upcoming" class="filter-btn px-3 py-1.5 rounded-full t-badge bg-paper-200 text-ink hover:bg-paper-300 transition">Upcoming</button>
           </div>
         </div>
 
@@ -600,20 +372,18 @@
         </div>
 
         <!-- Empty State SVG Illustration for Challenge Empty -->
-        <div id="challengeEmpty"
-          class="hidden flex-col items-center justify-center text-center py-12 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
-          <svg class="w-24 h-24 text-sage-soft mb-3 animate-float" viewBox="0 0 120 120" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="50" fill="#EBF0EA" opacity="0.6" />
+        <div id="challengeEmpty" class="hidden flex-col items-center justify-center text-center py-12 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
+          <svg class="w-24 h-24 text-sage-soft mb-3 animate-float" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" fill="#EBF0EA" opacity="0.6"/>
             <!-- Pot Waiting for Seed -->
-            <path d="M40 75 L45 100 L75 100 L80 75 Z" fill="#E29578" stroke="#C86D51" stroke-width="2" />
-            <rect x="36" y="70" width="48" height="6" rx="3" fill="#C86D51" />
+            <path d="M40 75 L45 100 L75 100 L80 75 Z" fill="#E29578" stroke="#C86D51" stroke-width="2"/>
+            <rect x="36" y="70" width="48" height="6" rx="3" fill="#C86D51"/>
             <!-- Soil & Sprout -->
-            <ellipse cx="60" cy="71" rx="20" ry="4" fill="#586A5E" />
-            <path d="M60 70 C60 55 52 45 42 48 C42 48 50 62 60 70 Z" fill="#7C9082" class="animate-sway" />
-            <path d="M60 62 C60 52 70 42 78 46 C78 46 72 58 60 62 Z" fill="#C6D4C5" class="animate-sway-delayed" />
-            <circle cx="75" cy="35" r="3" fill="#D99B26" class="animate-pulse-gentle" />
-            <circle cx="35" cy="30" r="2" fill="#A2B5BB" class="animate-pulse-gentle" />
+            <ellipse cx="60" cy="71" rx="20" ry="4" fill="#586A5E"/>
+            <path d="M60 70 C60 55 52 45 42 48 C42 48 50 62 60 70 Z" fill="#7C9082" class="animate-sway"/>
+            <path d="M60 62 C60 52 70 42 78 46 C78 46 72 58 60 62 Z" fill="#C6D4C5" class="animate-sway-delayed"/>
+            <circle cx="75" cy="35" r="3" fill="#D99B26" class="animate-pulse-gentle"/>
+            <circle cx="35" cy="30" r="2" fill="#A2B5BB" class="animate-pulse-gentle"/>
           </svg>
           <h3 class="t-h3">No challenges here</h3>
           <p class="t-meta mt-1 max-w-xs">Plant a new challenge in Begin to get started.</p>
@@ -621,36 +391,30 @@
       </section>
 
       <!-- SECTION 03: PRACTICE (Daily Task Check-in for Selected Challenge) -->
-      <section id="practice-section"
-        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+      <section id="practice-section" class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
         <!-- Header Motif SVG: Bloom / Flower -->
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
           <div class="flex items-center gap-2.5">
             <svg class="w-6 h-6 text-ochre animate-sway" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="4" fill="#D99B26" />
-              <path d="M16 4 C14 9 14 12 16 12 C18 12 18 9 16 4 Z" fill="#F7E8C8" stroke="#D99B26" />
-              <path d="M16 28 C14 23 14 20 16 20 C18 20 18 23 16 28 Z" fill="#F7E8C8" stroke="#D99B26" />
-              <path d="M4 16 C9 14 12 14 12 16 C12 18 9 18 4 16 Z" fill="#F7E8C8" stroke="#D99B26" />
-              <path d="M28 16 C23 14 20 14 20 16 C20 18 23 18 28 16 Z" fill="#F7E8C8" stroke="#D99B26" />
+              <circle cx="16" cy="16" r="4" fill="#D99B26"/>
+              <path d="M16 4 C14 9 14 12 16 12 C18 12 18 9 16 4 Z" fill="#F7E8C8" stroke="#D99B26"/>
+              <path d="M16 28 C14 23 14 20 16 20 C18 20 18 23 16 28 Z" fill="#F7E8C8" stroke="#D99B26"/>
+              <path d="M4 16 C9 14 12 14 12 16 C12 18 9 18 4 16 Z" fill="#F7E8C8" stroke="#D99B26"/>
+              <path d="M28 16 C23 14 20 14 20 16 C20 18 23 18 28 16 Z" fill="#F7E8C8" stroke="#D99B26"/>
             </svg>
             <h2 class="t-h2">03 · Practice</h2>
           </div>
           <div id="practiceDateNav" class="flex items-center gap-1">
-            <button id="btnPrevDay"
-              class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition"
-              aria-label="Previous day">&larr;</button>
+            <button id="btnPrevDay" class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition" aria-label="Previous day">&larr;</button>
             <span id="displaySelectedDate" class="t-stat px-1">Today</span>
-            <button id="btnNextDay"
-              class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition"
-              aria-label="Next day">&rarr;</button>
+            <button id="btnNextDay" class="w-8 h-8 inline-flex items-center justify-center t-btn text-ink/70 hover:bg-paper-200 rounded-lg transition" aria-label="Next day">&rarr;</button>
           </div>
         </div>
 
         <!-- Dynamic Content Area -->
         <div id="practiceActiveContainer">
           <!-- Active challenge header info -->
-          <div
-            class="mb-5 bg-paper-200/60 p-4 rounded-xl border border-paper-300 flex items-center justify-between gap-3">
+          <div class="mb-5 bg-paper-200/60 p-4 rounded-xl border border-paper-300 flex items-center justify-between gap-3">
             <h3 id="activeChallengeTitle" class="t-h3">Select a challenge</h3>
             <div class="text-right shrink-0">
               <div id="activeChallengeStreak" class="t-stat text-terra-dark">0 Days Rooted</div>
@@ -662,8 +426,7 @@
           <div class="space-y-3 mb-4">
             <div class="flex items-center justify-between">
               <span class="t-label">Daily Checklist</span>
-              <button id="btnAddStepPrompt" type="button" class="t-btn text-sage-dark hover:text-sage-deep transition">+
-                Add Task</button>
+              <button id="btnAddStepPrompt" type="button" class="t-btn text-sage-dark hover:text-sage-deep transition">+ Add Task</button>
             </div>
             <div id="dailyStepsList" class="space-y-2">
               <!-- Tasks dynamically rendered -->
@@ -672,43 +435,37 @@
 
           <!-- Add Task Form (Hidden by default) -->
           <form id="addStepForm" class="hidden mb-4 p-3 rounded-xl bg-paper-200/60 border border-paper-300 space-y-2.5">
-            <input type="text" id="inputNewStep" placeholder="New task name" aria-label="New task name"
-              class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+            <input type="text" id="inputNewStep" placeholder="New task name" aria-label="New task name" class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
             <div class="grid grid-cols-2 gap-2.5">
               <label class="block">
                 <span class="t-label block mb-1">From</span>
-                <input type="date" id="inputNewStepStart"
-                  class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+                <input type="date" id="inputNewStepStart" class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
               </label>
               <label class="block">
                 <span class="t-label block mb-1">To</span>
-                <input type="date" id="inputNewStepEnd"
-                  class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
+                <input type="date" id="inputNewStepEnd" class="w-full px-3 py-2 rounded-lg bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage" />
               </label>
             </div>
             <div class="flex justify-end gap-2">
-              <button type="button" id="btnCancelAddStep"
-                class="px-3.5 py-2 rounded-lg t-btn text-ink/70 hover:bg-paper-300 transition">Cancel</button>
-              <button type="submit"
-                class="px-4 py-2 bg-sage text-white rounded-lg t-btn hover:bg-sage-dark transition">Add</button>
+              <button type="button" id="btnCancelAddStep" class="px-3.5 py-2 rounded-lg t-btn text-ink/70 hover:bg-paper-300 transition">Cancel</button>
+              <button type="submit" class="px-4 py-2 bg-sage text-white rounded-lg t-btn hover:bg-sage-dark transition">Add</button>
             </div>
           </form>
         </div>
 
         <!-- Empty State SVG Illustration for Practice Detail Empty -->
-        <div id="detailEmpty"
-          class="flex flex-col items-center justify-center text-center py-10 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
+        <div id="detailEmpty" class="flex flex-col items-center justify-center text-center py-10 px-4 border-2 border-dashed border-paper-300 rounded-xl bg-paper-50/50">
           <svg class="w-20 h-20 text-sage-soft mb-3 animate-float" viewBox="0 0 100 100" fill="none">
             <!-- Open Journal & Sprig SVG -->
-            <rect x="15" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5" />
-            <rect x="51" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5" />
-            <line x1="22" y1="40" x2="40" y2="40" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
-            <line x1="22" y1="48" x2="42" y2="48" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
-            <line x1="22" y1="56" x2="35" y2="56" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round" />
+            <rect x="15" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5"/>
+            <rect x="51" y="30" width="34" height="45" rx="3" fill="#FDFBF7" stroke="#7C9082" stroke-width="1.5"/>
+            <line x1="22" y1="40" x2="40" y2="40" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="48" x2="42" y2="48" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="56" x2="35" y2="56" stroke="#EFE8DB" stroke-width="2" stroke-linecap="round"/>
             <!-- Botanical Sprig laying across -->
-            <path d="M30 65 C45 50 55 40 75 35" stroke="#C86D51" stroke-width="2" stroke-linecap="round" />
-            <path d="M45 50 C42 42 48 38 52 42 C52 42 48 48 45 50 Z" fill="#7C9082" class="animate-sway" />
-            <path d="M60 42 C64 36 70 38 68 44 C68 44 62 45 60 42 Z" fill="#C6D4C5" class="animate-sway-delayed" />
+            <path d="M30 65 C45 50 55 40 75 35" stroke="#C86D51" stroke-width="2" stroke-linecap="round"/>
+            <path d="M45 50 C42 42 48 38 52 42 C52 42 48 48 45 50 Z" fill="#7C9082" class="animate-sway"/>
+            <path d="M60 42 C64 36 70 38 68 44 C68 44 62 45 60 42 Z" fill="#C6D4C5" class="animate-sway-delayed"/>
           </svg>
           <h3 class="t-h3">No active challenge selected</h3>
           <p class="t-meta mt-1 max-w-xs">Select or create a challenge to check off daily tasks.</p>
@@ -716,16 +473,13 @@
       </section>
 
       <!-- SECTION 04: NOTICE (Daily Mood & Reflection Journal) -->
-      <section id="notice-section"
-        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+      <section id="notice-section" class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
         <!-- Header Motif SVG: Crescent / Sun -->
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
           <div class="flex items-center gap-2.5">
             <svg class="w-6 h-6 text-plum animate-sway" viewBox="0 0 32 32" fill="none">
-              <path
-                d="M22 16C22 21.5228 17.5228 26 12 26C9.2 26 6.7 24.8 5 23C8 23 14 20 14 13C14 8 10 5.5 7 5C8.5 4.3 10.2 4 12 4C17.5228 4 22 8.47715 22 16Z"
-                fill="#EAE2E5" stroke="#7A5C68" stroke-width="1.5" />
-              <circle cx="24" cy="8" r="1.5" fill="#D99B26" />
+              <path d="M22 16C22 21.5228 17.5228 26 12 26C9.2 26 6.7 24.8 5 23C8 23 14 20 14 13C14 8 10 5.5 7 5C8.5 4.3 10.2 4 12 4C17.5228 4 22 8.47715 22 16Z" fill="#EAE2E5" stroke="#7A5C68" stroke-width="1.5"/>
+              <circle cx="24" cy="8" r="1.5" fill="#D99B26"/>
             </svg>
             <h2 class="t-h2">04 · Notice</h2>
           </div>
@@ -738,33 +492,27 @@
           <div>
             <label class="t-label block mb-2">How was your creative flow today?</label>
             <div class="grid grid-cols-3 xl:grid-cols-6 gap-2" id="moodPickerGrid">
-              <button type="button" data-mood="Calm"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-sage transition">
+              <button type="button" data-mood="Calm" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-sage transition">
                 <span class="text-xl">🌿</span>
                 <span class="t-meta">Calm</span>
               </button>
-              <button type="button" data-mood="Joyful"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-ochre transition">
+              <button type="button" data-mood="Joyful" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-ochre transition">
                 <span class="text-xl">✨</span>
                 <span class="t-meta">Joyful</span>
               </button>
-              <button type="button" data-mood="Reflective"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-plum transition">
+              <button type="button" data-mood="Reflective" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-plum transition">
                 <span class="text-xl">🌙</span>
                 <span class="t-meta">Reflective</span>
               </button>
-              <button type="button" data-mood="Tired"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-mist transition">
+              <button type="button" data-mood="Tired" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-mist transition">
                 <span class="text-xl">🌧️</span>
                 <span class="t-meta">Tired</span>
               </button>
-              <button type="button" data-mood="Creative"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra transition">
+              <button type="button" data-mood="Creative" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra transition">
                 <span class="text-xl">🎨</span>
                 <span class="t-meta">Creative</span>
               </button>
-              <button type="button" data-mood="Anxious"
-                class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra-dark transition">
+              <button type="button" data-mood="Anxious" class="mood-btn flex flex-col items-center justify-center gap-1 px-1 py-2.5 rounded-xl bg-paper-50 border border-paper-300 hover:border-terra-dark transition">
                 <span class="text-xl">🍃</span>
                 <span class="t-meta">Restless</span>
               </button>
@@ -774,28 +522,25 @@
           <!-- Reflection Journal Textarea -->
           <div>
             <label for="inputJournalNote" class="t-label block mb-1.5">Journal Note</label>
-            <textarea id="inputJournalNote" rows="3" placeholder="What did you notice today?"
-              class="w-full p-3 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent transition"></textarea>
+            <textarea id="inputJournalNote" rows="3" placeholder="What did you notice today?" class="w-full p-3 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent transition"></textarea>
           </div>
 
-          <button type="submit"
-            class="w-full py-2.5 rounded-xl bg-plum hover:bg-plum-dark text-white t-btn transition shadow-sm">
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-plum hover:bg-plum-dark text-white t-btn transition shadow-sm">
             Save Today's Reflection
           </button>
         </form>
       </section>
 
       <!-- SECTION 05: LOOK BACK (Weekly Reflection & Calendar Matrix) -->
-      <section id="lookback-section"
-        class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
+      <section id="lookback-section" class="lg:col-span-6 bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-sm botanical-card">
         <!-- Header Motif SVG: Fern -->
         <div class="flex items-center justify-between mb-5 pb-3 border-b border-paper-200">
           <div class="flex items-center gap-2.5">
             <svg class="w-6 h-6 text-sage animate-sway-delayed" viewBox="0 0 32 32" fill="none">
-              <path d="M6 26 C12 20 18 12 26 4 C24 10 22 18 20 26 Z" fill="#C6D4C5" stroke="#7C9082" />
-              <path d="M12 20 C8 18 6 14 8 12" stroke="#7C9082" stroke-linecap="round" />
-              <path d="M16 16 C14 12 14 8 16 6" stroke="#7C9082" stroke-linecap="round" />
-              <path d="M20 12 C20 8 22 4 24 3" stroke="#7C9082" stroke-linecap="round" />
+              <path d="M6 26 C12 20 18 12 26 4 C24 10 22 18 20 26 Z" fill="#C6D4C5" stroke="#7C9082"/>
+              <path d="M12 20 C8 18 6 14 8 12" stroke="#7C9082" stroke-linecap="round"/>
+              <path d="M16 16 C14 12 14 8 16 6" stroke="#7C9082" stroke-linecap="round"/>
+              <path d="M20 12 C20 8 22 4 24 3" stroke="#7C9082" stroke-linecap="round"/>
             </svg>
             <h2 class="t-h2">05 · Look Back</h2>
           </div>
@@ -815,9 +560,9 @@
         <!-- Empty State SVG Illustration for Week Summary -->
         <div id="weekSummaryEmpty" class="hidden flex-col items-center justify-center text-center py-6 px-4">
           <svg class="w-16 h-16 text-mist mb-2 animate-float" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="35" stroke="#A2B5BB" stroke-width="1.5" stroke-dasharray="4 3" />
-            <path d="M30 65 C45 45 55 45 70 65" stroke="#C86D51" stroke-width="2" />
-            <circle cx="50" cy="35" r="5" fill="#D99B26" class="animate-pulse-gentle" />
+            <circle cx="50" cy="50" r="35" stroke="#A2B5BB" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M30 65 C45 45 55 45 70 65" stroke="#C86D51" stroke-width="2"/>
+            <circle cx="50" cy="35" r="5" fill="#D99B26" class="animate-pulse-gentle"/>
           </svg>
           <p class="t-meta">Log daily practices to see your week.</p>
         </div>
@@ -830,9 +575,9 @@
       <!-- Symmetrical Botanical Divider SVG -->
       <div class="flex items-center justify-center gap-3 mb-4 text-sage opacity-85">
         <svg class="w-12 h-6 animate-breath" viewBox="0 0 60 24" fill="none">
-          <path d="M30 12 C20 4 10 12 0 12 C10 12 20 20 30 12 Z" fill="#C6D4C5" />
-          <path d="M30 12 C40 4 50 12 60 12 C50 12 40 20 30 12 Z" fill="#C6D4C5" />
-          <circle cx="30" cy="12" r="3" fill="#C86D51" />
+          <path d="M30 12 C20 4 10 12 0 12 C10 12 20 20 30 12 Z" fill="#C6D4C5"/>
+          <path d="M30 12 C40 4 50 12 60 12 C50 12 40 20 30 12 Z" fill="#C6D4C5"/>
+          <circle cx="30" cy="12" r="3" fill="#C86D51"/>
         </svg>
       </div>
 
@@ -843,31 +588,23 @@
 
   <!-- SIGN IN MODAL -->
   <div id="authModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-ink/40 p-4">
-    <form id="authForm"
-      class="w-full max-w-sm bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-lg space-y-4">
+    <form id="authForm" class="w-full max-w-sm bg-paper-100 rounded-2xl p-6 border border-paper-300 shadow-lg space-y-4">
       <div class="flex items-center justify-between">
         <h2 class="t-h2">Sign in</h2>
-        <button type="button" id="btnAuthClose"
-          class="w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:bg-paper-200 transition"
-          aria-label="Close">✕</button>
+        <button type="button" id="btnAuthClose" class="w-8 h-8 inline-flex items-center justify-center rounded-lg t-btn text-mist-dark hover:bg-paper-200 transition" aria-label="Close">✕</button>
       </div>
       <div>
         <label for="authEmailInput" class="t-label block mb-1.5">Email</label>
-        <input type="email" id="authEmailInput" required autocomplete="email"
-          class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+        <input type="email" id="authEmailInput" required autocomplete="email" class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
       </div>
       <div>
         <label for="authPasswordInput" class="t-label block mb-1.5">Password</label>
-        <input type="password" id="authPasswordInput" required minlength="6" autocomplete="current-password"
-          class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
+        <input type="password" id="authPasswordInput" required minlength="6" autocomplete="current-password" class="w-full px-3.5 py-2.5 rounded-xl bg-paper-50 border border-paper-300 t-input focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent transition" />
       </div>
       <p id="authMessage" class="t-meta min-h-[1.25rem]"></p>
       <div class="grid grid-cols-2 gap-2">
-        <button type="submit" class="py-2.5 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition">Sign
-          in</button>
-        <button type="button" id="btnSignUp"
-          class="py-2.5 rounded-xl border border-sage text-sage-dark hover:bg-sage-light t-btn transition">Create
-          account</button>
+        <button type="submit" class="py-2.5 rounded-xl bg-sage hover:bg-sage-dark text-white t-btn transition">Sign in</button>
+        <button type="button" id="btnSignUp" class="py-2.5 rounded-xl border border-sage text-sage-dark hover:bg-sage-light t-btn transition">Create account</button>
       </div>
     </form>
   </div>
@@ -882,7 +619,7 @@
     // SUPABASE: paste your project URL and anon (public) key here.
     // Leave both empty to keep using this browser's local storage only.
     const SUPABASE_URL = 'https://njmnhfhzvzmozsqwtafg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qbW5oZmh6dnptb3pzcXd0YWZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTAwODIsImV4cCI6MjExMDk4NjA4Mn0.dkr-qydzVJUPcQ5GBPMcxGeBLtncA9B1LWeiV-Wk8wI';
+    const SUPABASE_ANON_KEY = 'sb_publishable_EwnKijHQR3s_GmXECqHElg_i1G4uJkA';
 
     // Julia Cameron Quotes Database
     const JULIA_CAMERON_QUOTES = [
@@ -1130,9 +867,14 @@
     let cloudSaveTimer = null;
     let isPulling = false;
 
-    function setSyncStatus(text) {
+    function setSyncStatus(text, detail) {
       const el = document.getElementById('syncStatus');
-      if (el) el.textContent = text;
+      if (!el) return;
+      el.textContent = detail ? `${text}: ${detail}` : text;
+      el.title = detail || '';
+      el.classList.toggle('max-w-[260px]', !!detail);
+      el.classList.toggle('truncate', !!detail);
+      el.classList.toggle('inline-block', !!detail);
     }
 
     function scheduleCloudSave() {
@@ -1151,7 +893,7 @@
       });
       if (error) {
         console.error('Cloud save failed', error);
-        setSyncStatus('Sync failed');
+        setSyncStatus('Sync failed', error.message);
       } else {
         setSyncStatus('Synced');
       }
@@ -1164,14 +906,14 @@
       const { data, error } = await sb.from('habit_data').select('data').eq('user_id', currentUser.id).maybeSingle();
       if (error) {
         console.error('Cloud load failed', error);
-        setSyncStatus('Sync failed');
+        setSyncStatus('Sync failed', error.message);
         return;
       }
       if (data && data.data && Array.isArray(data.data.challenges)) {
         isPulling = true;
         appData = data.data;
         normalizeData();
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); } catch (e) { }
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); } catch (e) {}
         isPulling = false;
         lastNoticeKey = null;
         renderAll();
@@ -1266,7 +1008,7 @@
           currentUser = null;
           updateAuthUI();
           // Remove this account's data from the device and start fresh
-          try { localStorage.removeItem(STORAGE_KEY); } catch (e) { }
+          try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
           appData = { challenges: [], activeId: null };
           loadData();
           lastNoticeKey = null;
@@ -1557,10 +1299,11 @@
         if (status === 'upcoming') badgeBg = 'bg-mist-light text-mist-dark';
 
         const card = document.createElement('div');
-        card.className = `p-4 rounded-xl border transition cursor-pointer relative overflow-hidden ${isSelected
+        card.className = `p-4 rounded-xl border transition cursor-pointer relative overflow-hidden ${
+          isSelected
             ? 'bg-paper-50 border-sage shadow-sm ring-1 ring-sage/40'
             : 'bg-paper-50/70 border-paper-300 hover:border-paper-400'
-          }`;
+        }`;
 
         card.innerHTML = `
           <div class="flex items-start justify-between gap-3 mb-3">
@@ -1668,8 +1411,9 @@
       const done = !!(dayLog && dayLog.done && dayLog.done[task.id]) && scheduled;
 
       const row = document.createElement('div');
-      row.className = `flex items-start gap-2 p-3 rounded-xl border transition ${done ? 'bg-sage-light/40 border-sage-soft' : 'bg-paper-50 border-paper-300'
-        } ${scheduled ? '' : 'opacity-60'}`;
+      row.className = `flex items-start gap-2 p-3 rounded-xl border transition ${
+        done ? 'bg-sage-light/40 border-sage-soft' : 'bg-paper-50 border-paper-300'
+      } ${scheduled ? '' : 'opacity-60'}`;
 
       row.innerHTML = `
         <label class="flex items-start gap-3 flex-1 min-w-0 ${scheduled ? 'cursor-pointer' : 'cursor-default'}">
@@ -1831,9 +1575,11 @@
         const isToday = dateStr === selectedDateStr;
 
         const cell = document.createElement('div');
-        cell.className = `flex flex-col items-center p-2 rounded-xl border text-center transition cursor-pointer ${isToday ? 'ring-2 ring-sage' : ''
-          } ${isCompleted ? 'bg-sage-light border-sage text-sage-deep' : 'bg-paper-50 border-paper-300 text-mist-dark'
-          }`;
+        cell.className = `flex flex-col items-center p-2 rounded-xl border text-center transition cursor-pointer ${
+          isToday ? 'ring-2 ring-sage' : ''
+        } ${
+          isCompleted ? 'bg-sage-light border-sage text-sage-deep' : 'bg-paper-50 border-paper-300 text-mist-dark'
+        }`;
 
         cell.innerHTML = `
           <span class="t-label">${dayLabel}</span>
@@ -1904,7 +1650,7 @@
     // Helper: Escape HTML
     function escapeHtml(str) {
       if (!str) return '';
-      return str.replace(/[&<>"']/g, function (m) {
+      return str.replace(/[&<>"']/g, function(m) {
         return {
           '&': '&amp;',
           '<': '&lt;',
@@ -1916,5 +1662,4 @@
     }
   </script>
 </body>
-
 </html>
